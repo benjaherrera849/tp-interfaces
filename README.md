@@ -1,6 +1,6 @@
 # Grupo 28
 
-# Integrantes:
+Integrantes:
 
-Benjamin Herrera Randazzo
+Benjamin Herrera Randazzo y
 Juan Emilio Chantiri
