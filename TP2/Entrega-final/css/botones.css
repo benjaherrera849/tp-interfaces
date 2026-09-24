@@ -1,0 +1,55 @@
+/* ==========================================================
+   botones.css
+   Se usa así: <button class="boton boton--primario">Texto</button>
+   (también sirve con <a>). Cada variante tiene un hover distinto.
+   ========================================================== */
+
+/* Base: lo que comparten todos los botones */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: var(--body-small);
+  font-weight: 600;
+  color: var(--color-texto);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Primario (violeta): se oscurece y crece un poco */
+.boton--primario {
+  background-color: var(--color-primario);
+}
+
+.boton--primario:hover {
+  background-color: var(--color-primario-oscuro);
+  transform: scale(1.05);
+}
+
+/* Secundario (turquesa): se aclara y se levanta con sombra */
+.boton--secundario {
+  background-color: var(--color-secundario);
+  color: var(--color-fondo); /* texto oscuro: el blanco no se lee sobre turquesa */
+}
+
+.boton--secundario:hover {
+  background-color: var(--color-secundario-luz);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.35);
+}
+
+/* Fantasma (ej: "Compartir"): forma de píldora y brillo que se expande */
+.boton--fantasma {
+  background-color: var(--color-superficie);
+  border-radius: 999px;
+  box-shadow: 0 0 4px rgb(255 255 255 / 0.25);
+}
+
+.boton--fantasma:hover {
+  box-shadow: 0 0 4px 4px rgb(255 255 255 / 0.25);
+}

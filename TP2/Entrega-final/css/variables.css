@@ -1,0 +1,42 @@
+/* ==========================================================
+   variables.css
+   Colores y tamaños de texto que usa el sitio.
+   Para cambiar uno, se modifica acá y se actualiza en todas
+   las páginas.
+   ========================================================== */
+
+:root {
+  
+  --color-fondo: #15121e;            /* fondo de todas las páginas */
+  --color-superficie: #2f2d37cf;     /* paneles, cards, formularios */
+  --color-borde: #5252578c;          /* bordes y campos de formulario */
+
+  --color-primario: #9b07f0;            /* violeta: botones principales */
+  --color-primario-oscuro: #630b95;     /* hover de botones violetas */
+ 
+  --color-secundario: #0dd8c7f2;        /* turquesa */
+  --color-secundario-luz: #7cf2e9;      /* hover del turquesa */
+ 
+  --color-acento: #2f13cd;              /* azul */
+  --color-acento-luz: #3815ffe8;        /* breadcrumbs de la pantalla de ejecución */
+
+  --color-texto: #ffffff;
+  --color-placeholder: #f8f8f8b2;   
+
+  
+  --fuente-principal: "Barlow", sans-serif;
+  
+  --fuente-titulo: "Bitcount Single", monospace;
+
+ 
+  --body-small: 0.875rem;   /* 14px  texto chico */
+  --body: 1rem;       /* 16px  texto normal y botones */
+  --body-large: 1.125rem;   /* 18px  texto destacado */
+  --h4: 1.25rem;    /* 20px  H4 y links */
+  --h3: 1.5rem;     /* 24px  H3 (subtítulos) */
+  --h2: 2rem;      /* 32px  H2 */
+  --h1: 3rem;      /* 48px  H1 */
+
+ 
+  
+}
