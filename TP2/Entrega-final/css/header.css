@@ -1,0 +1,221 @@
+.header-principal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  background-color: var(--color-fondo); /* #15121e */
+  border-bottom: 1px solid var(--color-borde);
+  gap: 1rem;
+}
+
+.header__grupo {
+  display: flex;
+  align-items: center;
+}
+
+.header__grupo--izq { gap: 1.5rem; }
+.header__grupo--centro { flex-grow: 1; max-width: 600px; justify-content: center; }
+.header__grupo--der { gap: 2rem; }
+
+/* === Logo === */
+.logo-contenedor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 60px; /* Ajusta según el tamaño de tu imagen */
+  width: auto;
+}
+
+.logo-texto {
+  /* Usa la fuente pixelada y el color blanco definido en tus variables */
+  font-family: var(--fuente-titulo);
+  color: var(--color-texto); 
+  font-size: var(--h2);
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.menu-hamburguesa {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;             
+  padding: 5px;
+  width: 35px;
+  z-index: 100;
+}
+.menu-hamburguesa .linea:nth-child(2) { width: 70%; }
+
+.menu-hamburguesa .linea {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-texto);
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-hamburguesa.activo .linea:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.menu-hamburguesa.activo .linea:nth-child(2) {
+  opacity: 0; 
+}
+.menu-hamburguesa.activo .linea:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* === Buscador === */
+.buscador {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-superficie); /* Fondo semitransparente oscuro */
+  border: 1px solid var(--color-borde);
+  border-radius: 999px; /* Forma de píldora */
+  padding: 0.5rem 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.buscador__input {
+  background: transparent;
+  border: none;
+  color: var(--color-texto);
+  width: 100%;
+  outline: none; /* Quitamos el outline nativo para usar los nuestros */
+  font-family: var(--fuente-principal);
+}
+
+.buscador__input::placeholder {
+  color: var(--color-placeholder);
+}
+
+.buscador__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.buscador__btn img {
+  height: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.buscador__btn:hover img { opacity: 1; }
+
+
+.buscador:focus-within {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 15px rgba(155, 7, 240, 0.4);
+  transform: scaleX(1.02); 
+}
+
+
+
+/* === Íconos de Acción === */
+.icono-accion {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-texto);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icono-accion i {
+  font-size: 32px;
+  color: var(--color-texto);
+  transition: text-shadow 0.3s ease, transform 0.2s ease;
+}
+.icono-accion:hover i {
+  text-shadow: 0 0 15px var(--color-primario);
+  transform: translateY(-1px); 
+}
+
+.icono-accion img {
+  height: 24px;
+  transition: filter 0.3s ease, transform 0.2s ease;
+}
+
+/* Animación de iluminación sutil usando tus variables[cite: 1] */
+.icono-accion:hover img {
+  filter: drop-shadow(0 0 8px var(--color-primario)) brightness(1.2);
+  transform: translateY(-2px); /* Se levanta un poquito, como tus botones secundarios */
+}
+
+.usuario-texto {
+  font-size: var(--body-small);
+  color: var(--color-placeholder);
+  transition: color 0.3s;
+}
+.icono-accion:hover .usuario-texto {
+  color: var(--color-texto);
+}
+
+/* === Buscador (Ícono) === */
+.buscador__btn i {
+  font-size: 20px;
+  color: var(--color-texto);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.buscador__btn:hover i { opacity: 1; }
+
+
+
+/* ==========================================================
+   RESPONSIVE (Móviles)
+   ========================================================== */
+@media (max-width: 768px) {
+  .header-principal {
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Ocultamos el texto de usuario */
+  .usuario-texto {
+    display: none;
+  }
+  
+  /* Ajuste de espacios */
+  .header__grupo--der {
+    gap: 1rem;
+  }
+
+  /* Ocultamos el buscador completo visualmente por defecto */
+  .header__grupo--centro {
+    position: absolute;
+    top: 70px; /* Debajo del header */
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-fondo);
+    border-bottom: 1px solid var(--color-borde);
+    
+    /* Configuración para animar aparición */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+
+  /* Clase que agregaremos con JS al hacer clic en la lupa */
+  .header__grupo--centro.mostrar-buscador {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Botón de lupa extra que solo aparece en móvil para desplegar el buscador */
+  .lupa-movil {
+    display: block; /* Este botón habría que agregarlo en el HTML para la derecha si quisieras, lo gestionamos con el mismo botón del centro reubicado temporalmente */
+  }
+}
