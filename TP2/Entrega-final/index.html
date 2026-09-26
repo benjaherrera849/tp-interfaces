@@ -14,6 +14,7 @@
   <!-- Estilos: primero las variables, después la base y los componentes -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
+   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/botones.css">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -22,20 +23,18 @@
 
 <div id="header-container"></div>
 
+    <div class="app-layout">
+        <div id="sidebar-container"></div>
+        
+        <main class="contenido-principal">
+            <h1>Bienvenido a Hitbox</h1>
+
+        </main>
+    </div>
 
 
-  <!-- PRUEBA: borrar cuando empecemos con el header -->
-  <main>
-    <h1>Título H1</h1>
-    <h2>Título H2</h2>
-    <h3>Título H3</h3>
-    <h4>Título H4</h4>
-    <p>Texto normal para comprobar que la fuente y los colores cargan bien.</p>
-
-    <button class="boton boton--primario">Iniciar sesión</button>
-    <button class="boton boton--secundario">Jugar</button>
-    <button class="boton boton--fantasma">Compartir</button>
-  </main>
 <script src="js/header.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

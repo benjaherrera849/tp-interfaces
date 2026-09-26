@@ -64,3 +64,15 @@ input {
   outline: 2px solid var(--color-secundario);
   outline-offset: 2px;
 }
+
+/* ALINEAMIENTO DE LOS ELEMENTOS (main y sidebar ) */
+.app-layout {
+  display: flex; 
+  align-items: flex-start; 
+  min-height: calc(100vh - 70px); 
+}
+.contenido-principal {
+  flex-grow: 1; 
+  padding: 2rem;
+  overflow-y: auto;
+}

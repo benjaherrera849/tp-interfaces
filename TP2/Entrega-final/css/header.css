@@ -26,12 +26,11 @@
 }
 
 .logo-img {
-  height: 60px; /* Ajusta según el tamaño de tu imagen */
+  height: 60px; 
   width: auto;
 }
 
 .logo-texto {
-  /* Usa la fuente pixelada y el color blanco definido en tus variables */
   font-family: var(--fuente-titulo);
   color: var(--color-texto); 
   font-size: var(--h2);
@@ -74,9 +73,9 @@
 .buscador {
   display: flex;
   align-items: center;
-  background-color: var(--color-superficie); /* Fondo semitransparente oscuro */
+  background-color: var(--color-superficie); 
   border: 1px solid var(--color-borde);
-  border-radius: 999px; /* Forma de píldora */
+  border-radius: 999px; 
   padding: 0.5rem 1rem;
   width: 100%;
   transition: all 0.3s ease;
@@ -87,7 +86,7 @@
   border: none;
   color: var(--color-texto);
   width: 100%;
-  outline: none; /* Quitamos el outline nativo para usar los nuestros */
+  outline: none; 
   font-family: var(--fuente-principal);
 }
 
@@ -149,7 +148,7 @@
 /* Animación de iluminación sutil usando tus variables[cite: 1] */
 .icono-accion:hover img {
   filter: drop-shadow(0 0 8px var(--color-primario)) brightness(1.2);
-  transform: translateY(-2px); /* Se levanta un poquito, como tus botones secundarios */
+  transform: translateY(-2px); 
 }
 
 .usuario-texto {
@@ -193,7 +192,7 @@
   /* Ocultamos el buscador completo visualmente por defecto */
   .header__grupo--centro {
     position: absolute;
-    top: 70px; /* Debajo del header */
+    top: 70px; 
     left: 0;
     width: 100%;
     padding: 1rem;
