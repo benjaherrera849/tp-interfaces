@@ -1,0 +1,157 @@
+/* ==========================================================
+   CARRUSELES
+   ========================================================== */
+.categoria-seccion {
+    margin-bottom: 1rem;
+}
+
+.categoria-titulo {
+    font-size: var(--h3);
+    font-family: var(--fuente-principal);
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+
+.carrusel-contenedor {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem 0.5rem;
+    scroll-behavior: smooth;
+    /* Ocultar scrollbar visualmente pero mantener funcionalidad */
+    scrollbar-width: none; 
+}
+.carrusel-contenedor::-webkit-scrollbar {
+    display: none;
+}
+
+/* ==========================================================
+   CARDS
+   ========================================================== */
+.card-game {
+    flex: 0 0 auto; 
+    width: 300px; 
+    height: 220px; 
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--color-superficie);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-game__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.card-game__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(15,15,20,0.95) 100%);
+    z-index: 2;
+}
+
+.card-game__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Badge minimalista: Fondo oscuro, texto turquesa */
+.card-game__badge {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--color-secundario);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--fuente-principal);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    backdrop-filter: blur(4px);
+}
+
+.card-game__rating {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fbbf24;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    backdrop-filter: blur(4px);
+}
+
+.card-game__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.card-game__title {
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    font-size: 0.9rem;
+    font-weight: 600;
+    max-width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-game__cart {
+    color: var(--color-texto);
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+/* ==========================================================
+   HOVER MINIMALISTA
+   ========================================================== */
+.card-game__btn-plus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%); 
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-primario);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.card-game::after {
+    display: none; 
+}
+.card-game:hover .card-game__bg {
+    filter: brightness(0.6);
+    transform: scale(1.05);
+}
+
+.card-game:hover .card-game__btn-plus {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+.card-game:hover .card-game__cart {
+    color: var(--color-secundario);
+}

@@ -213,8 +213,4 @@
     transform: translateY(0);
   }
 
-  /* Botón de lupa extra que solo aparece en móvil para desplegar el buscador */
-  .lupa-movil {
-    display: block; /* Este botón habría que agregarlo en el HTML para la derecha si quisieras, lo gestionamos con el mismo botón del centro reubicado temporalmente */
-  }
 }

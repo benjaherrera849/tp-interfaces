@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ejecutamos las funciones que viven en los otros archivos
         if (typeof inicializarHeader === 'function') inicializarHeader();
         if (typeof inicializarSidebar === 'function') inicializarSidebar();
+        if (typeof cargarJuegos === 'function') cargarJuegos();
     })
     .catch(error => console.error('Error cargando componentes:', error));
 

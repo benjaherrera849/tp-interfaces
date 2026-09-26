@@ -13,6 +13,7 @@
 
   <!-- Estilos: primero las variables, después la base y los componentes -->
   <link rel="stylesheet" href="css/variables.css">
+   <link rel="stylesheet" href="css/juegos.css">
   <link rel="stylesheet" href="css/base.css">
    <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/header.css">
@@ -26,15 +27,35 @@
     <div class="app-layout">
         <div id="sidebar-container"></div>
         
-        <main class="contenido-principal">
-            <h1>Bienvenido a Hitbox</h1>
+<main class="contenido-principal">
+    
+    <!-- Categoría: Acción -->
+    <section class="categoria-seccion">
+        <h2 class="categoria-titulo">Acción</h2>
+        <div class="carrusel-contenedor" id="carrusel-accion">
+            <!-- cards-->
+        </div>
+    </section>
 
-        </main>
+    <!-- Categoría: Aventura -->
+    <section class="categoria-seccion">
+        <h2 class="categoria-titulo">Aventura</h2>
+        <div class="carrusel-contenedor" id="carrusel-aventura"></div>
+    </section>
+
+    <!-- Categoría: Deportes -->
+    <section class="categoria-seccion">
+        <h2 class="categoria-titulo">Deportes</h2>
+        <div class="carrusel-contenedor" id="carrusel-deportes"></div>
+    </section>
+
+</main>
     </div>
 
 
 <script src="js/header.js"></script>
 <script src="js/sidebar.js"></script>
 <script src="js/main.js"></script>
+<script src="js/api.js"></script>
 </body>
 </html>
