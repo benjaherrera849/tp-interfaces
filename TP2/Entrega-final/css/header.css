@@ -1,11 +1,26 @@
+/* ==========================================================
+   header.css  (mobile first)
+   Los estilos base son los del celular. Lo que cambia en
+   escritorio está al final, en @media (min-width: 768px).
+   ========================================================== */
+
+/* Alto del header: lo usan también base.css y sidebar.css */
+:root {
+  --alto-header: 4rem;
+}
+
 .header-principal {
+  position: sticky; /* se queda arriba al scrollear y ancla el buscador desplegable */
+  top: 0;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 2rem;
-  background-color: var(--color-fondo); /* #15121e */
-  border-bottom: 1px solid var(--color-borde);
   gap: 1rem;
+  height: var(--alto-header);
+  padding: 0 1rem;
+  background-color: var(--color-fondo);
+  border-bottom: 1px solid var(--color-borde);
 }
 
 .header__grupo {
@@ -13,43 +28,39 @@
   align-items: center;
 }
 
-.header__grupo--izq { gap: 1.5rem; }
-.header__grupo--centro { flex-grow: 1; max-width: 600px; justify-content: center; }
-.header__grupo--der { gap: 2rem; }
+.header__grupo--der { gap: 0.75rem; }
 
 /* === Logo === */
 .logo-contenedor {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  align-items: center; 
   text-decoration: none;
 }
 
 .logo-img {
-  height: 60px; 
-  width: auto;
+  height: 40px;
+  width:80px;
 }
 
 .logo-texto {
   font-family: var(--fuente-titulo);
-  color: var(--color-texto); 
-  font-size: var(--h2);
-  margin: 0;
+  font-size: var(--h3);
+  font-weight: 700;
+  color: var(--color-texto);
   text-transform: capitalize;
 }
 
+/* === Hamburguesa === */
 .menu-hamburguesa {
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 5px;             
+  gap: 5px;
   padding: 5px;
   width: 35px;
-  z-index: 100;
 }
-.menu-hamburguesa .linea:nth-child(2) { width: 70%; }
 
 .menu-hamburguesa .linea {
   display: block;
@@ -59,34 +70,69 @@
   transition: all 0.3s ease-in-out;
 }
 
+.menu-hamburguesa .linea:nth-child(2) { width: 70%; }
+
+/* Estado "X" (7px = alto de la línea + separación) */
 .menu-hamburguesa.activo .linea:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 .menu-hamburguesa.activo .linea:nth-child(2) {
-  opacity: 0; 
+  opacity: 0;
 }
 .menu-hamburguesa.activo .linea:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* === Buscador === */
+/* === Buscador ===
+   En celular es un panel que baja desde el header (lo abre la lupa). */
+.header__grupo--centro {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-fondo);
+  border-bottom: 1px solid var(--color-borde);
+
+  /* Oculto. La visibilidad tarda 0.3s en cambiar al ocultarse (para dejar
+     ver la animación) pero es inmediata al mostrarse (así el input recibe el foco). */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s;
+}
+
+/* Clase que agrega header.js al tocar la lupa */
+.header__grupo--centro.mostrar-buscador {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
 .buscador {
   display: flex;
   align-items: center;
-  background-color: var(--color-superficie); 
-  border: 1px solid var(--color-borde);
-  border-radius: 999px; 
-  padding: 0.5rem 1rem;
   width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
   transition: all 0.3s ease;
 }
 
+.buscador:focus-within {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 15px rgba(155, 7, 240, 0.4);
+  transform: scaleX(1.02);
+}
+
 .buscador__input {
+  width: 100%;
   background: transparent;
   border: none;
+  outline: none; /* el aviso de foco lo da .buscador:focus-within */
   color: var(--color-texto);
-  width: 100%;
-  outline: none; 
   font-family: var(--fuente-principal);
 }
 
@@ -95,122 +141,90 @@
 }
 
 .buscador__btn {
-  background: none;
-  border: none;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
   padding: 0 0.5rem;
-  display: flex;
-  align-items: center;
-}
-
-.buscador__btn img {
-  height: 20px;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-.buscador__btn:hover img { opacity: 1; }
-
-
-.buscador:focus-within {
-  border-color: var(--color-primario);
-  box-shadow: 0 0 15px rgba(155, 7, 240, 0.4);
-  transform: scaleX(1.02); 
-}
-
-
-
-/* === Íconos de Acción === */
-.icono-accion {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-texto);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
-.icono-accion i {
-  font-size: 32px;
-  color: var(--color-texto);
-  transition: text-shadow 0.3s ease, transform 0.2s ease;
-}
-.icono-accion:hover i {
-  text-shadow: 0 0 15px var(--color-primario);
-  transform: translateY(-1px); 
-}
-
-.icono-accion img {
-  height: 24px;
-  transition: filter 0.3s ease, transform 0.2s ease;
-}
-
-/* Animación de iluminación sutil usando tus variables[cite: 1] */
-.icono-accion:hover img {
-  filter: drop-shadow(0 0 8px var(--color-primario)) brightness(1.2);
-  transform: translateY(-2px); 
-}
-
-.usuario-texto {
-  font-size: var(--body-small);
-  color: var(--color-placeholder);
-  transition: color 0.3s;
-}
-.icono-accion:hover .usuario-texto {
-  color: var(--color-texto);
-}
-
-/* === Buscador (Ícono) === */
 .buscador__btn i {
   font-size: 20px;
   color: var(--color-texto);
   opacity: 0.7;
   transition: opacity 0.2s;
 }
+
 .buscador__btn:hover i { opacity: 1; }
 
+/* === Íconos de acción (lupa móvil, carrito, usuario) === */
+.icono-accion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-texto);
+}
 
+.icono-accion i {
+  font-size: 1.75rem;
+  transition: text-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.icono-accion:hover i {
+  text-shadow: 0 0 15px var(--color-primario);
+  transform: translateY(-1px);
+}
+
+/* Solo texto en escritorio */
+.usuario-texto {
+  display: none;
+  font-size: var(--body-small);
+  color: var(--color-placeholder);
+  transition: color 0.3s;
+}
+
+.icono-accion:hover .usuario-texto {
+  color: var(--color-texto);
+}
 
 /* ==========================================================
-   RESPONSIVE (Móviles)
+   ESCRITORIO (768px o más)
    ========================================================== */
-@media (max-width: 768px) {
-  .header-principal {
-    padding: 0.75rem 1rem;
-  }
-  
-  /* Ocultamos el texto de usuario */
-  .usuario-texto {
-    display: none;
-  }
-  
-  /* Ajuste de espacios */
-  .header__grupo--der {
-    gap: 1rem;
+@media (min-width: 768px) {
+  :root {
+    --alto-header: 5rem;
   }
 
-  /* Ocultamos el buscador completo visualmente por defecto */
+  .header-principal { padding: 0 2rem; }
+
+  .header__grupo--izq { gap: 1.5rem; }
+  .header__grupo--der { gap: 2rem; }
+
+  .logo-img { height: 60px; }
+  .logo-texto { font-size: var(--h2); }
+
+  .icono-accion i { font-size: 2rem; }
+  .usuario-texto { display: inline; }
+
+  /* La lupa que abre el buscador ya no hace falta */
+  .btn-lupa-movil { display: none; }
+
+  /* El buscador deja de ser un panel y pasa a estar siempre visible en el centro */
   .header__grupo--centro {
-    position: absolute;
-    top: 70px; 
-    left: 0;
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--color-fondo);
-    border-bottom: 1px solid var(--color-borde);
-    
-    /* Configuración para animar aparición */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-  }
-
-  /* Clase que agregaremos con JS al hacer clic en la lupa */
-  .header__grupo--centro.mostrar-buscador {
+    position: static;
+    flex-grow: 1;
+    max-width: 600px;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    border-bottom: none;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: none;
+    transition: none;
   }
-
 }

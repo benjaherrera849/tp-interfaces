@@ -65,14 +65,33 @@ input {
   outline-offset: 2px;
 }
 
-/* ALINEAMIENTO DE LOS ELEMENTOS (main y sidebar ) */
-.app-layout {
-  display: flex; 
-  align-items: flex-start; 
-  min-height: calc(100vh - 70px); 
+/* ==========================================================
+   LAYOUT: header + sidebar + contenido (mobile first)
+   ========================================================== */
+
+/* main.js inyecta el header y el sidebar dentro de estos contenedores.
+   Con display: contents no generan caja propia: el header y el sidebar
+   pasan a ser hijos directos de la página y "sticky" funciona. */
+#header-container,
+#sidebar-container {
+  display: contents;
 }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - var(--alto-header));
+}
+
 .contenido-principal {
-  flex-grow: 1; 
-  padding: 2rem;
-  overflow-y: auto;
+  flex-grow: 1;
+  min-width: 0; /* deja que los carruseles hagan scroll sin ensanchar la página */
+  padding: 1rem;
+}
+
+/* Escritorio (768px o más) */
+@media (min-width: 768px) {
+  .contenido-principal {
+    padding: 2rem;
+  }
 }

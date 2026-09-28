@@ -5,31 +5,34 @@
                 <span class="linea"></span>
                 <span class="linea"></span>
             </button>
-            
-            <a href="/" class="logo-contenedor">
-                <img src="assets/logo-cubo.png" alt="Logo" class="logo-img"> 
-                <h1 class="logo-texto">Hitbox</h1>
+
+            <a href="./" class="logo-contenedor">
+                <img src="assets/logo-cubo.png" alt="Logo" class="logo-img">
+                <span class="logo-texto">Hitbox</span>
             </a>
         </div>
 
+        <!-- En celular es un panel que se abre con la lupa; en escritorio está siempre visible -->
         <div class="header__grupo header__grupo--centro">
             <div class="buscador" id="contenedor-buscador">
                 <input type="text" placeholder="buscar juego..." class="buscador__input" id="input-buscador">
-                <button class="buscador__btn" id="btn-lupa" aria-label="Buscar">
-                    <!-- icono de Lupa de la librería -->
+                <button class="buscador__btn" aria-label="Buscar">
                     <i class="ph ph-magnifying-glass"></i>
                 </button>
             </div>
         </div>
 
         <div class="header__grupo header__grupo--der">
+            <!-- Solo se ve en celular: abre el buscador -->
+            <button class="icono-accion btn-lupa-movil" id="btn-lupa" aria-label="Abrir buscador">
+                <i class="ph ph-magnifying-glass"></i>
+            </button>
+
             <button class="icono-accion" aria-label="Ver carrito">
-                <!-- icono de Carrito -->
                 <i class="ph ph-shopping-cart"></i>
             </button>
-            
+
             <button class="icono-accion btn-usuario" aria-label="Perfil de usuario">
-                <!-- icono de Usuario -->
                 <i class="ph ph-user"></i>
                 <span class="usuario-texto">Usuario</span>
             </button>

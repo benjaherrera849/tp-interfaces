@@ -5,7 +5,7 @@ function inicializarHeader() {
     const btnLupa = document.getElementById('btn-lupa');
     const inputBuscador = document.getElementById('input-buscador');
 
-    // Toggle Hamburguesa a "X" + Expandir/Colapsar Sidebar
+    // Hamburguesa a "X" + mostrar/ocultar la sidebar
     if (btnMenu && sidebar) {
         btnMenu.addEventListener('click', () => {
             btnMenu.classList.toggle('activo');
@@ -13,15 +13,12 @@ function inicializarHeader() {
         });
     }
 
-    // Lógica del buscador en Móvil
+    // Lupa (solo existe en celular): abre y cierra el buscador
     if (btnLupa && contenedorBuscador && inputBuscador) {
-        btnLupa.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                contenedorBuscador.classList.toggle('mostrar-buscador');
-                if(contenedorBuscador.classList.contains('mostrar-buscador')){
-                    inputBuscador.focus();
-                }
+        btnLupa.addEventListener('click', () => {
+            contenedorBuscador.classList.toggle('mostrar-buscador');
+            if (contenedorBuscador.classList.contains('mostrar-buscador')) {
+                inputBuscador.focus();
             }
         });
     }

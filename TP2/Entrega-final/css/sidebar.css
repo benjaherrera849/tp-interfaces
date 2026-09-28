@@ -1,15 +1,32 @@
+/* ==========================================================
+   sidebar.css  (mobile first)
+   Celular: panel que se desliza desde la izquierda con la hamburguesa.
+   Escritorio (al final): columna fija que se expande y se colapsa.
+   ========================================================== */
+
 .sidebar {
-  width: 80px; 
-  background-color: var(--color-fondo);
-  border-right: 1px solid var(--color-borde);
-  border-left: 2px solid var(--color-primario); 
-  transition: width 0.3s ease;
-  overflow-x: hidden;
-  overflow-y: auto; /* nos permite scrollear si la lista es muy larga */
+  position: fixed;
+  top: var(--alto-header);
+  bottom: 0;
+  left: 0;
+  z-index: 40;
   display: flex;
   flex-direction: column;
+  width: 250px;
+  background-color: var(--color-fondo);
+  border-right: 1px solid var(--color-borde);
+  border-left: 2px solid var(--color-primario);
+  overflow-x: hidden;
+  overflow-y: auto; /* permite scrollear si la lista es muy larga */
+
+  transform: translateX(-100%); /* escondido a la izquierda */
+  transition: transform 0.3s ease, width 0.3s ease;
 }
 
+/* header.js agrega esta clase al tocar la hamburguesa */
+.sidebar.expandida {
+  transform: translateX(0);
+}
 
 .sidebar::-webkit-scrollbar {
   width: 6px;
@@ -25,11 +42,6 @@
   background: var(--color-primario);
 }
 
-
-.sidebar.expandida {
-  width: 250px; 
-}
-
 .sidebar__nav {
   display: flex;
   flex-direction: column;
@@ -40,12 +52,12 @@
 .sidebar__link {
   display: flex;
   align-items: center;
+  position: relative;
   padding: 0.75rem 1.5rem;
   text-decoration: none;
+  white-space: nowrap;
   color: var(--color-texto);
   transition: all 0.3s ease;
-  white-space: nowrap;
-  position: relative; 
 }
 
 .sidebar__link:hover {
@@ -53,59 +65,85 @@
 }
 
 .sidebar__link i {
-  font-size: 28px;
-  min-width: 32px; 
   display: flex;
   justify-content: center;
+  min-width: 32px;
+  font-size: 28px;
 }
-/* nombre de las cat */
+
+/* Nombre de la categoría */
 .sidebar__texto {
   margin-left: 1rem;
   font-size: var(--body);
   font-weight: 500;
-  color: var(--color-primario); 
-  opacity: 0;
+  color: var(--color-primario);
   transition: opacity 0.2s ease;
-}
-
-/* Muestra el texto solo cuando está expandida */
-.sidebar.expandida .sidebar__texto {
-  opacity: 1;
-  transition-delay: 0.1s;
 }
 
 .sidebar__separador {
   height: 1px;
-  background-color: var(--color-borde);
   margin: 1rem 1.5rem;
+  background-color: var(--color-borde);
 }
 
-
-/* ESTADO DE NAV ACTIVO */
+/* === Ítem activo === */
 .sidebar__link.activo {
   background: linear-gradient(90deg, rgba(13, 216, 199, 0.15) 0%, transparent 100%);
 }
-/* el texto y el icono cambian de color y tienen movimiento */
+
+/* El texto y el ícono cambian de color y avanzan un poco */
 .sidebar__link.activo i,
 .sidebar__link.activo .sidebar__texto {
   color: var(--color-secundario-luz);
   text-shadow: 0 0 12px rgba(124, 242, 233, 0.6);
-  transform: translateX(6px); /* Efecto de "avanzar" al hacer click */
+  transform: translateX(6px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .sidebar__link.activo::before {
   content: '';
   position: absolute;
   left: 0;
   top: 15%;
-  height: 70%;
   width: 4px;
+  height: 70%;
   background-color: var(--color-secundario-luz);
   box-shadow: 0 0 10px var(--color-secundario-luz);
   border-radius: 0 4px 4px 0;
   animation: deslizarMarcador 0.3s ease forwards;
 }
+
 @keyframes deslizarMarcador {
   0% { transform: scaleY(0); opacity: 0; }
   100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* ==========================================================
+   ESCRITORIO (768px o más)
+   ========================================================== */
+@media (min-width: 768px) {
+  /* Columna pegada debajo del header, angosta (solo íconos) */
+  .sidebar {
+    position: sticky;
+    top: var(--alto-header);
+    bottom: auto;
+    flex-shrink: 0;
+    width: 80px;
+    height: calc(100vh - var(--alto-header));
+    transform: none;
+  }
+
+  .sidebar.expandida {
+    width: 250px;
+  }
+
+  /* Los nombres solo se ven con la barra expandida */
+  .sidebar__texto {
+    opacity: 0;
+  }
+
+  .sidebar.expandida .sidebar__texto {
+    opacity: 1;
+    transition-delay: 0.1s;
+  }
 }
