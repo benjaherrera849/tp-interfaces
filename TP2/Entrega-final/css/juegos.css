@@ -3,6 +3,128 @@
    Los estilos base son los del celular; lo de escritorio está
    al final, en @media (min-width: 768px).
    ========================================================== */
+
+/* ==========================================================
+   HERO CONTENEDOR 
+   ========================================================== */
+.hero-section {
+    width: 100%;
+    margin-bottom: 3rem;
+    overflow: hidden; 
+}
+
+.hero-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.hero-contenedor {
+    perspective: 3000px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; 
+    padding: 2rem calc(50vw - 140px);
+}
+
+.hero-contenedor::-webkit-scrollbar { display: none; }
+
+.hero-card {
+    flex: 0 0 280px;
+    height: 200px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: center;
+    filter: brightness(0.4);
+    transform: scale(0.85) rotateY(10deg);
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.7s ease, box-shadow 0.7s ease;
+    will-change: transform, filter;
+    cursor: pointer;
+}
+
+/* El estado activo recupera la escala original y el brillo */
+.hero-card.activo {
+    filter: brightness(1);
+    transform: scale(1) rotateY(0deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.1);
+    z-index: 2;
+}
+.hero-card.activo ~ .hero-card {
+    transform: scale(0.85) rotateY(-10deg);
+}
+
+.hero-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Información de la tarjeta (Oculta por defecto) */
+.hero-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+    
+    /* Animación de entrada elegante (Slide Up) */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+.hero-card.activo .hero-card__info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-card__titulo {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: var(--color-texto);
+    font-weight: 700;
+}
+
+.hero-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem; 
+    font-size: 0.7rem;
+}
+
+.badge-categoria, .badge-estado {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-destacado {
+    border: 1px solid var(--color-secundario);
+    color: var(--color-secundario);
+    background-color: transparent;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px; 
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hero-btn { display: none; }
+
 .categoria-seccion {
     margin-bottom: 1rem;
 }
@@ -165,6 +287,58 @@
    ESCRITORIO (768px o más)
    ========================================================== */
 @media (min-width: 768px) {
+.hero-contenedor {
+        gap: 0.9rem;
+        /* Recálculo del padding mágico para tarjeta de escritorio de 500px */
+        padding: 2rem calc(50vw - 250px); 
+    }
+
+    .hero-card {
+        flex: 0 0 500px;
+        height: 300px;
+    }
+
+    .hero-btn {
+        display: flex;
+        position: absolute;
+        z-index: 20;
+        background: none;
+        border: none;
+        color: var(--color-primario);
+        font-size: 3rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s;
+    }
+
+    .hero-btn:hover {
+        transform: scale(1.15);
+        color: var(--color-secundario);
+    }
+    .hero-card__info {
+        padding: 2rem 1.5rem; /* Volvemos al padding generoso */
+    }
+
+    .hero-card__titulo {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-card__badges {
+        gap: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .badge-categoria, .badge-estado {
+        padding: 0.3rem 0.6rem;
+    }
+
+    .badge-destacado {
+        padding: 0.3rem 0.8rem;
+    }
+
+    .hero-btn--prev { left: 60px; }
+    .hero-btn--next { right: 60px; }
+    
     .categoria-titulo {
         font-size: var(--h3);
     }
