@@ -124,6 +124,7 @@ input {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  font-family: var(--fuente-principal);
 }
 
 .pantalla-carga.oculta{

@@ -3,9 +3,12 @@ function inicializarSidebar() {
     
     // Cambia la clase 'activo' al ítem clickeado
     links.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault();
+            }
             links.forEach(l => l.classList.remove('activo'));
-            this.classList.add('activo');
+            this.classList.toggle('activo');
         });
     });
 }
