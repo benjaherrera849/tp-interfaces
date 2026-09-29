@@ -7,7 +7,7 @@ async function cargarJuegos() {
         
         const juegos = await respuesta.json(); 
 
-        // Filtrar juegos por categoría revisando el array de géneros[cite: 19]
+        // Filtrar juegos por categoría revisando el array de géneros
         const juegosAccion = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'action'));
         const juegosAventura = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'adventure'));
         const juegosDeportes = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'sports'));
