@@ -17,18 +17,32 @@ async function cargarJuegos() {
             ...juegosHero,                     // Los 8 reales
             juegosHero[0]                      // clon del primero para tapar el hueco derecho
         ];
+
+
+        const baseDeportes = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'sports'));
+        const baseEstrategia = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'strategy'));
         // Filtrar juegos por categoría revisando el array de géneros
         const juegosAccion = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'action'));
         const juegosAventura = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'adventure'));
-        const juegosDeportes = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'sports'));
+        const juegosDeportes = [...baseDeportes, ...baseDeportes, ...baseDeportes, ...baseDeportes, ...baseDeportes, ...baseDeportes];
+        const juegosEstrategia = [...baseEstrategia, ...baseEstrategia, ...baseEstrategia];
+        const juegosDisparos = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'shooter'));
+        const juegosSimulacion = juegos.filter(j => j.genres.some(g => g.name.toLowerCase() === 'simulation'));
 
+        const juegosTendencia = juegos.filter(j => j.rating >= 4.3);
+        const juegosRecientes = [...juegos].sort((a, b) => new Date(b.released) - new Date(a.released));
         // Renderizar cada carrusel
         renderizarCarruselHero(juegosSinHuecos, 'hero-contenedor');
         renderizarCarrusel(juegosAccion, 'carrusel-accion', 'Acción');
         renderizarCarrusel(juegosAventura, 'carrusel-aventura', 'Aventura');
         renderizarCarrusel(juegosDeportes, 'carrusel-deportes', 'Deportes');
-
+        renderizarCarrusel(juegosEstrategia, 'carrusel-estrategia', 'Estrategia');
+        renderizarCarrusel(juegosDisparos, 'carrusel-disparos', 'Disparos');
+        renderizarCarrusel(juegosSimulacion, 'carrusel-simulacion', 'Simulación');
+        renderizarCarrusel(juegosTendencia, 'carrusel-tendencia', 'Top');
+        renderizarCarrusel(juegosRecientes, 'carrusel-recientes', 'Nuevo');
         inicializarFlechasHero();
+        inicializarFlechasNormales()
     } catch (error) {
         console.error('Error al obtener los juegos:', error);
     }
@@ -136,4 +150,22 @@ function inicializarFlechasHero() {
             moverA((activa === cards[cards.length - 2] || activa === cards[cards.length - 1]) ? cards[1] : activa.nextElementSibling);
         });
     }
+}
+function inicializarFlechasNormales() {
+    document.querySelectorAll('.carrusel-wrapper').forEach(wrapper => {
+        const contenedor = wrapper.querySelector('.carrusel-contenedor');
+        const btnPrev = wrapper.querySelector('.carrusel-btn--prev');
+        const btnNext = wrapper.querySelector('.carrusel-btn--next');
+
+        if (btnPrev && btnNext && contenedor) {
+            const moverConInercia = (distancia, clase) => {
+                contenedor.scrollBy({ left: distancia, behavior: 'smooth' });
+                contenedor.classList.add(clase);
+                setTimeout(() => contenedor.classList.remove(clase), 250);
+            };
+
+            btnPrev.addEventListener('click', () => moverConInercia(-1200, 'scroll-izq'));
+            btnNext.addEventListener('click', () => moverConInercia(1200, 'scroll-der'));
+        }
+    });
 }

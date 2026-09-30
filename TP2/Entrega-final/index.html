@@ -38,8 +38,7 @@
         
 <main class="contenido-principal">
     
-    <section class="hero-section">
-        <!-- Agregamos el wrapper que es fundamental para posicionar las flechas -->
+    <section class="hero-section" id="inicio">
         <div class="hero-wrapper">
             <button class="hero-btn hero-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
             
@@ -52,23 +51,81 @@
     </section>
     
     <!-- Categoría: Acción -->
-    <section class="categoria-seccion">
+    <section class="categoria-seccion" id="accion">
         <h2 class="categoria-titulo">Acción</h2>
-        <div class="carrusel-contenedor" id="carrusel-accion">
-            <!-- cards-->
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            
+            <div class="carrusel-contenedor" id="carrusel-accion">
+                <!-- Acá inyecta el JS -->
+            </div>
+            
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
         </div>
     </section>
 
     <!-- Categoría: Aventura -->
-    <section class="categoria-seccion">
+    <section class="categoria-seccion" id="aventura">
         <h2 class="categoria-titulo">Aventura</h2>
-        <div class="carrusel-contenedor" id="carrusel-aventura"></div>
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-aventura"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+        </div>
     </section>
 
     <!-- Categoría: Deportes -->
-    <section class="categoria-seccion">
+    <section class="categoria-seccion" id="deportes">
         <h2 class="categoria-titulo">Deportes</h2>
-        <div class="carrusel-contenedor" id="carrusel-deportes"></div>
+         <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-deportes"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+         </div>
+    </section>
+    <section class="categoria-seccion" id="tendencia">
+        <h2 class="categoria-titulo">Tendencias Top</h2>
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-tendencia"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+        </div>
+    </section>
+
+    <section class="categoria-seccion" id="recientes">
+        <h2 class="categoria-titulo">Agregados Recientemente</h2>
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-recientes"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+        </div>
+    </section>
+    
+    <section class="categoria-seccion" id="estrategia">
+        <h2 class="categoria-titulo">Estrategia</h2>
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-estrategia"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+        </div>
+    </section>
+
+    <section class="categoria-seccion" id="disparos">
+        <h2 class="categoria-titulo">Disparos</h2>
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-disparos"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+        </div>
+    </section>
+
+    <section class="categoria-seccion" id="simulacion">
+        <h2 class="categoria-titulo">Simulación</h2>
+        <div class="carrusel-wrapper">
+            <button class="carrusel-btn carrusel-btn--prev"><i class="ph-fill ph-caret-circle-left"></i></button>
+            <div class="carrusel-contenedor" id="carrusel-simulacion"></div>
+            <button class="carrusel-btn carrusel-btn--next"><i class="ph-fill ph-caret-circle-right"></i></button>
+        </div>
     </section>
 
 </main>

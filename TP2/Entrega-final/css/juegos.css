@@ -11,6 +11,7 @@
     width: 100%;
     margin-bottom: 3rem;
     overflow: hidden; 
+    background: radial-gradient(ellipse 60% 50% at bottom center, #0dd8c727 0%, transparent 100%);
 }
 
 .hero-wrapper {
@@ -143,11 +144,18 @@
     overflow-x: auto;
     padding: 1rem 0.5rem;
     scroll-behavior: smooth;
-    /* Ocultar scrollbar visualmente pero mantener funcionalidad */
     scrollbar-width: none;
 }
 .carrusel-contenedor::-webkit-scrollbar {
     display: none;
+}
+.carrusel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.carrusel-btn {
+    display: none; /* Oculto en mobile */
 }
 
 /* ==========================================================
@@ -351,4 +359,54 @@
         width: 300px;
         height: 220px;
     }
+
+    .carrusel-btn {
+        display: flex;
+        position: absolute;
+        z-index: 10;
+        background: none;
+        border: none;
+        color: var(--color-primario);
+        font-size: 2.5rem;
+        cursor: pointer;
+        transition: transform 0.5s ease, color 0.5s ease;
+    }
+
+    .carrusel-btn:hover {
+        transform: scale(1.15);
+        color: var(--color-secundario);
+    }
+
+    .carrusel-btn--prev { left: -15px; }
+    .carrusel-btn--next { right: -15px; }
+
+/* ==========================================================
+   EFECTO INERCIA EN CARRUSEL (Scroll Cinético)
+   ========================================================== */
+.carrusel-contenedor {
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2rem;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.carrusel-contenedor.scroll-der {
+    transform: translateX(-20px);
+}
+
+.carrusel-contenedor.scroll-izq {
+    transform: translateX(20px);
+}
+
+/* Limpiamos la transición de las cards para que no hagan doble animación */
+.card-game {
+    transition: filter 0.3s ease; 
+    scroll-snap-align: center;
+    flex-shrink: 0;
+}
+.categoria-seccion, .hero-section {
+    /* Evita que el título de la sección quede tapado por tu Navbar superior. 
+       Ajustá los 80px según el alto real de tu barra de navegación */
+    scroll-margin-top: 80px; 
+}
 }
