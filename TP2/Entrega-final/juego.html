@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peg Solitaire: Fútbol</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@700&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/botones.css">
+  <link rel="stylesheet" href="css/juego.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+<div id="header-container"></div>
+
+<div class="app-layout">
+  <div id="sidebar-container"></div>
+
+  <main class="contenido-principal">
+
+    <nav class="breadcrumbs" aria-label="Ruta de navegación">
+      <ol>
+        <li><a href="index.html" class="enlace">Home</a>></li>
+        <li><a href="biblioteca.html" class="enlace">Juegos</a>></li>
+        <li><a href="index.html#deportes" class="enlace">Deportes</a>></li>
+        <li aria-current="page">Fútbol</li>
+      </ol>
+    </nav>
+
+    <div class="pagina-juego">
+      <div class="pagina-juego__principal">
+
+        <!-- Pantalla del juego: captura estática, no es jugable -->
+        <section class="pantalla-juego">
+          <img
+            src="assets/juego-peg-solitaire.png"
+            alt="Captura de Peg Solitaire: Fútbol, con las fichas ubicadas en el tablero en forma de cruz"
+            class="pantalla-juego__imagen"
+          >
+          <div class="pantalla-juego__controles">
+            <button class="pantalla-juego__control" aria-label="Ayuda">
+              <i class="ph ph-question"></i>
+            </button>
+            <button class="pantalla-juego__control" aria-label="Silenciar sonido">
+              <i class="ph ph-speaker-high"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Descripción: título, galería de imágenes e info del juego -->
+        <section class="descripcion-juego">
+          <div class="descripcion-juego__encabezado">
+            <h2 class="descripcion-juego__titulo">Peg Solitaire: Fútbol</h2>
+            <button class="boton boton--fantasma">
+              <i class="ph ph-share-network"></i>
+              Compartir
+            </button>
+          </div>
+
+          <div class="descripcion-juego__cuerpo">
+            <div class="galeria-juego">
+              <div class="galeria-juego__marco">
+                <img src="assets/galeria-1.png" alt="Tablero con las fichas listas para empezar la partida" class="galeria-juego__imagen activa">
+                <img src="assets/galeria-2.png" alt="Vista general del tablero de Peg Solitaire: Fútbol" class="galeria-juego__imagen">
+              </div>
+              <div class="galeria-juego__puntos">
+                <button class="galeria-juego__punto activo" aria-label="Mostrar imagen 1"></button>
+                <button class="galeria-juego__punto" aria-label="Mostrar imagen 2"></button>
+              </div>
+            </div>
+
+            <dl class="info-juego">
+              <div class="info-juego__fila">
+                <dt>Desarrollador:</dt>
+                <dd>PixelCorner Studio</dd>
+              </div>
+              <div class="info-juego__fila">
+                <dt>Calificación:</dt>
+                <dd>5/10</dd>
+              </div>
+              <div class="info-juego__fila">
+                <dt>Fecha de lanzamiento:</dt>
+                <dd>01/09/2026</dd>
+              </div>
+            </dl>
+          </div>
+
+          <a href="index.html" class="enlace">Más juegos como este</a>
+        </section>
+
+        <!-- Cómo jugar: reglas y video tutorial -->
+        <section class="como-jugar">
+          <h2 class="como-jugar__titulo">Cómo jugar</h2>
+
+          <ol class="como-jugar__reglas">
+            <li>El tablero tiene 33 huecos en forma de cruz. Se coloca una clavija en cada hueco, menos en el del centro, que queda vacío.</li>
+            <li>Una clavija puede saltar sobre otra clavija vecina (solo horizontal o vertical, nunca en diagonal) para caer en un espacio vacío justo después de ella.</li>
+            <li>La clavija que fue saltada se retira del tablero.</li>
+            <li>Repetís este proceso, buscando siempre nuevos saltos posibles.</li>
+            <li>El juego termina cuando no quedan más movimientos disponibles.</li>
+            <li>Ganás si lográs terminar con una sola clavija en el tablero, idealmente en el hueco central.</li>
+          </ol>
+
+          <button class="como-jugar__video" aria-label="Reproducir video tutorial">
+            <img src="assets/como-jugar-video.png" alt="" class="como-jugar__miniatura">
+            <i class="ph-fill ph-play-circle como-jugar__icono-play"></i>
+          </button>
+        </section>
+
+      </div>
+
+      <!-- Panel de Comunidad: escribir reseña + reseñas existentes -->
+      <aside class="comunidad">
+        <h2 class="comunidad__titulo">COMUNIDAD</h2>
+
+        <form id="form-resena" class="resena-form">
+          <textarea id="texto-resena" class="resena-form__texto" placeholder="Escribe una reseña..."></textarea>
+
+          <div class="resena-form__pie">
+            <label for="puntaje-resena" class="resena-form__puntaje-label">
+              Calificación:
+              <input type="number" id="puntaje-resena" class="resena-form__puntaje" min="0" max="10">
+              /10
+            </label>
+            <button type="submit" class="boton boton--secundario">Enviar</button>
+          </div>
+        </form>
+
+        <div class="resenas">
+          <div class="resenas__encabezado">
+            <h3>Mas reseñas</h3>
+          </div>
+
+          <div id="lista-resenas">
+            <article class="resena">
+              <header class="resena__encabezado">
+                <span class="resena__usuario">CarlaGamer22</span>
+                <span class="resena__puntaje">8/10</span>
+              </header>
+              <p class="resena__texto">Muy entretenido para partidas cortas, ideal para el recreo.</p>
+            </article>
+
+            <article class="resena">
+              <header class="resena__encabezado">
+                <span class="resena__usuario">FitoRetro</span>
+                <span class="resena__puntaje">6/10</span>
+              </header>
+              <p class="resena__texto">Buena idea combinar el solitario con fútbol, pero se hace repetitivo después de un rato.</p>
+            </article>
+
+            <article class="resena">
+              <header class="resena__encabezado">
+                <span class="resena__usuario">Nachozor</span>
+                <span class="resena__puntaje">9/10</span>
+              </header>
+              <p class="resena__texto">El mejor juego de la plataforma, lo juego todos los días en el bondi.</p>
+            </article>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/header.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/main.js"></script>
+<script src="js/juego.js"></script>
+</body>
+</html>

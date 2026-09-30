@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@700&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/botones.css">
+  <link rel="stylesheet" href="css/formularios.css">
+
+  <!-- Ícono del ojo (mostrar/ocultar contraseña) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="pagina-auth">
+
+  <div class="fondo-auth" aria-hidden="true"></div>
+
+  <main class="tarjeta-auth">
+    <div class="tarjeta-auth__header">
+      <h2 class="tarjeta-auth__titulo">Iniciar sesión</h2>
+      <img src="assets/logo-cubo.png" alt="Logo de Hitbox" class="tarjeta-auth__logo">
+    </div>
+
+    <form id="form-login">
+      <div class="campo">
+        <label for="email" class="campo__etiqueta">Email</label>
+        <div class="campo__caja">
+          <input type="email" id="email" name="email" class="campo__input" placeholder="Ingrese su mail..." required>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="clave" class="campo__etiqueta">Contraseña</label>
+        <div class="campo__caja">
+          <input type="password" id="clave" name="clave" class="campo__input campo__input--clave" placeholder="Ingrese su contraseña..." required>
+          <button type="button" class="campo__toggle" data-input="clave" aria-label="Mostrar contraseña" aria-pressed="false">
+            <i class="ph ph-eye"></i>
+          </button>
+        </div>
+        <a href="#" class="auth-enlace enlace campo__olvido">¿Olvidó su contraseña?</a>
+      </div>
+
+      <div class="tarjeta-auth__pie">
+        <button type="submit" class="boton boton--primario">Iniciar sesión</button>
+        <p class="tarjeta-auth__pie-texto">
+          ¿No tiene una cuenta todavía?
+          <a href="registro.html" class="auth-enlace enlace">Regístrese aquí</a>
+        </p>
+      </div>
+    </form>
+  </main>
+
+  <script src="js/formularios.js"></script>
+</body>
+</html>

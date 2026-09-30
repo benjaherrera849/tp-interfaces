@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi Biblioteca - Mis Juegos</title>
+
+  <!-- Fuentes de Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@700&display=swap">
+
+  <!-- Estilos del sitio -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/botones.css">
+  <link rel="stylesheet" href="css/biblioteca.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+<div id="header-container"></div>
+
+<div class="app-layout">
+  <div id="sidebar-container"></div>
+
+  <main class="contenido-principal">
+    <header class="biblioteca__encabezado">
+      <div>
+        <h2 class="biblioteca__titulo">Mi Biblioteca</h2>
+        <p class="biblioteca__subtitulo">1 juego disponible en tu colección</p>
+      </div>
+    </header>
+
+    <div class="biblioteca__grid">
+      <!-- Tarjeta del juego Peg Solitaire -->
+      <article class="biblioteca-card">
+        <div class="biblioteca-card__portada">
+          <img src="assets/juego-peg-solitaire.png" alt="Peg Solitaire: Fútbol" class="biblioteca-card__img" onerror="this.src='assets/fondo-login.jpg'">
+          <span class="biblioteca-card__badge"><i class="ph-fill ph-check-circle"></i> Instalado</span>
+        </div>
+        <div class="biblioteca-card__contenido">
+          <div class="biblioteca-card__info">
+            <span class="biblioteca-card__genero">Estrategia / Deportes</span>
+            <h2 class="biblioteca-card__nombre">Peg Solitaire: Fútbol</h2>
+            <p class="biblioteca-card__detalles">Desarrollador: PixelCorner Studio • Calificación: 5/10</p>
+          </div>
+          <div class="biblioteca-card__acciones">
+            <a href="juego.html" class="boton boton--primario">
+              <i class="ph-fill ph-play"></i> JUGAR
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+</div>
+
+<script src="js/header.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

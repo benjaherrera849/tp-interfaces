@@ -192,6 +192,119 @@
 }
 
 /* ==========================================================
+   PANEL DEL CARRITO
+   Cuelga del ícono del carrito del header, fijo en pantalla
+   igual que el header (mismo z-index para quedar por encima).
+   ========================================================== */
+.carrito-panel {
+  position: fixed;
+  top: calc(var(--alto-header) + 0.5rem);
+  right: 1rem;
+  z-index: 60; /* el header usa 50, así que el panel va por encima */
+
+  display: none; /* .abierto lo cambia a flex */
+  flex-direction: column;
+  gap: 1rem;
+
+  width: min(320px, calc(100vw - 2rem));
+  max-height: 70vh;
+  overflow-y: auto;
+
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.carrito-panel.abierto {
+  display: flex;
+}
+
+.carrito-panel__titulo {
+  font-size: var(--h4);
+  color: var(--color-texto);
+}
+
+.carrito-panel__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.carrito-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--color-fondo);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.carrito-item__img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: var(--color-borde);
+}
+
+.carrito-item__nombre {
+  flex: 1; /* ocupa el espacio libre, empuja el precio y el tacho a la derecha */
+  color: var(--color-texto);
+  font-size: var(--body);
+  /* si el nombre es largo, no rompe el layout: corta con puntos suspensivos */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carrito-item__precio {
+  color: var(--color-placeholder);
+  font-size: var(--body);
+}
+
+.carrito-item__borrar {
+  color: var(--color-primario);
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.carrito-item__borrar:hover {
+  color: var(--color-primario-oscuro);
+  transform: scale(1.15);
+}
+
+.carrito-panel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--color-borde);
+  padding-top: 1rem;
+}
+
+.carrito-panel__total {
+  color: var(--color-texto);
+  font-weight: 600;
+}
+
+.carrito-panel__btn-pagar {
+  background-color: var(--color-primario);
+  color: var(--color-texto);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.carrito-panel__btn-pagar:hover {
+  background-color: var(--color-primario-oscuro);
+}
+
+/* ==========================================================
    ESCRITORIO (768px o más)
    ========================================================== */
 @media (min-width: 768px) {

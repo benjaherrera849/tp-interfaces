@@ -131,6 +131,39 @@
 </main>
     </div>
 
+<!-- Panel del carrito: oculto por default, se abre con el ícono del header -->
+<div class="carrito-panel" id="carrito-panel">
+    <h3 class="carrito-panel__titulo">Tu Carrito</h3>
+
+    <div class="carrito-panel__lista">
+        <article class="carrito-item">
+            <img src="assets/logo-cubo.png" alt="" class="carrito-item__img">
+            <span class="carrito-item__nombre">Peg Solitaire</span>
+            <span class="carrito-item__precio">$10.00</span>
+            <i class="ph ph-trash carrito-item__borrar"></i>
+        </article>
+
+        <article class="carrito-item">
+            <img src="assets/logo-cubo.png" alt="" class="carrito-item__img">
+            <span class="carrito-item__nombre">Chess Ultra</span>
+            <span class="carrito-item__precio">$12.00</span>
+            <i class="ph ph-trash carrito-item__borrar"></i>
+        </article>
+
+        <article class="carrito-item">
+            <img src="assets/logo-cubo.png" alt="" class="carrito-item__img">
+            <span class="carrito-item__nombre">Rocket League</span>
+            <span class="carrito-item__precio">$8.00</span>
+            <i class="ph ph-trash carrito-item__borrar"></i>
+        </article>
+    </div>
+
+    <div class="carrito-panel__footer">
+        <span class="carrito-panel__total">Total: $30.00</span>
+        <button class="carrito-panel__btn-pagar">Ir a pagar</button>
+    </div>
+</div>
+
 <script src="js/carga.js"></script>
 <script src="js/header.js"></script>
 <script src="js/sidebar.js"></script>

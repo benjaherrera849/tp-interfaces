@@ -29,6 +29,7 @@
 .boton--primario:hover {
   background-color: var(--color-primario-oscuro);
   transform: scale(1.05);
+  transition: transform 0.2s ease;
 }
 
 /* Secundario (turquesa): se aclara y se levanta con sombra */
@@ -39,8 +40,9 @@
 
 .boton--secundario:hover {
   background-color: var(--color-secundario-luz);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 6px 12px rgb(0 0 0 / 0.35);
+  transition: transform 0.5s ease-out;
 }
 
 /* Fantasma (ej: "Compartir"): forma de píldora y brillo que se expande */
@@ -51,5 +53,7 @@
 }
 
 .boton--fantasma:hover {
-  box-shadow: 0 0 4px 4px rgb(255 255 255 / 0.25);
+  box-shadow: 0 0 2px 2px rgb(255 255 255 / 0.25);
+  transform: scale(1.1);
+  transition: transform 0.5s ease;
 }
