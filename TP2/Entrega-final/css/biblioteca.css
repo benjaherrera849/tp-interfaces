@@ -109,7 +109,7 @@
 }
 
 
-/* Vista horizontal para pantallas medianas y grandes */
+
 @media (min-width: 640px) {
   .biblioteca-card {
     flex-direction: row;

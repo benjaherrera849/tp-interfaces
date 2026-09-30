@@ -336,12 +336,3 @@
   line-height: 1.5;
 }
 
-/* ==========================================================
-   ESCRITORIO (768px o más)
-   El enunciado pide esta página solo para escritorio.
-   ========================================================== */
-@media (min-width: 768px) {
-  .descripcion-juego__cuerpo {
-    flex-wrap: nowrap;
-  }
-}
