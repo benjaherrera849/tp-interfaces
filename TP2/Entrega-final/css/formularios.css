@@ -9,18 +9,16 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: safe center;
   justify-content: center;
   padding: 2rem;
-  overflow: hidden;
   overflow-y: auto;
 }
 
 .fondo-auth {
   position: fixed;
   inset: 0;
-  z-index: -1;
-  background-image: url("assets/fondo-login.jpg");
+  background-image: url("../assets/fondo-login.jpg");
   background-size: cover;
   background-position: center;
   /* scale(1.1) evita que se vean bordes nítidos al difuminar la imagen */
