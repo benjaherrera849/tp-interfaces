@@ -25,7 +25,9 @@
   <main class="tarjeta-auth">
     <div class="tarjeta-auth__header">
       <h2 class="tarjeta-auth__titulo">Iniciar sesión</h2>
+      <a href="index.html" title="Volver al inicio">
       <img src="assets/logo-cubo.png" alt="Logo de Hitbox" class="tarjeta-auth__logo">
+      </a>
     </div>
 
     <form id="form-login">
@@ -46,7 +48,9 @@
         </div>
         <a href="#" class="auth-enlace enlace campo__olvido">¿Olvidó su contraseña?</a>
       </div>
-
+      <div id="mensaje-error" class="mensaje-error" style="display: none;">
+        Credenciales incorrectas. Usá: tudai@hitbox.com / 123456
+      </div>
       <div class="tarjeta-auth__pie">
         <button type="submit" class="boton boton--primario">Iniciar sesión</button>
         <p class="tarjeta-auth__pie-texto">
@@ -56,7 +60,12 @@
       </div>
     </form>
   </main>
-
+  <div id="mensaje-exito" class="mensaje-exito">
+    <div class="mensaje-exito__tarjeta">
+      <i class="ph-fill ph-check-circle mensaje-exito__icono"></i>
+      <span class="mensaje-exito__texto">¡Inicio de sesión exitoso!</span>
+    </div>
+  </div>
   <script src="js/formularios.js"></script>
 </body>
 </html>

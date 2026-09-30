@@ -114,40 +114,74 @@ function inicializarFlechasHero() {
     if (!contenedor) return;
     const cards = Array.from(contenedor.querySelectorAll('.hero-card'));
 
-    // 1. Extraemos toda la matemática de scroll a una sola mini-función
+    // 1. Extraemos la matemática y la explicamos con variables claras
     const moverA = (tarjeta, smooth = true) => {
         if (!tarjeta) return;
-        const offset = tarjeta.offsetLeft - (contenedor.clientWidth / 2) + (tarjeta.clientWidth / 2);
-        contenedor.scrollTo({ left: offset, behavior: smooth ? 'smooth' : 'auto' });
+        
+        // Para centrar: Posición izquierda de la tarjeta menos la mitad de la pantalla, más la mitad de la tarjeta
+        const mitadPantalla = contenedor.clientWidth / 2;
+        const mitadTarjeta = tarjeta.clientWidth / 2;
+        const posicionFinal = tarjeta.offsetLeft - mitadPantalla + mitadTarjeta;
+        
+        contenedor.scrollTo({ left: posicionFinal, behavior: smooth ? 'smooth' : 'auto' });
     };
 
-    // 2. Optimizamos la detección de la tarjeta central usando reduce()
+    // 2. cambio de "reduce" complejo por un bucle forEach tradicional
     const actualizarActivo = () => {
-        const centro = contenedor.scrollLeft + (contenedor.clientWidth / 2);
-        const cercana = cards.reduce((prev, curr) => 
-            Math.abs((curr.offsetLeft + curr.clientWidth / 2) - centro) < 
-            Math.abs((prev.offsetLeft + prev.clientWidth / 2) - centro) ? curr : prev
-        );
+        const centroDelContenedor = contenedor.scrollLeft + (contenedor.clientWidth / 2);
+        
+        let tarjetaMasCercana = cards[0];
+        let distanciaMinima = Infinity;
 
-        contenedor.querySelector('.activo')?.classList.remove('activo');
-        cercana.classList.add('activo');
+        // Recorremos todas las tarjetas para ver cuál está más cerca del centro
+        cards.forEach(tarjeta => {
+            const centroDeEstaTarjeta = tarjeta.offsetLeft + (tarjeta.clientWidth / 2);
+            const distancia = Math.abs(centroDeEstaTarjeta - centroDelContenedor);
+
+            if (distancia < distanciaMinima) {
+                distanciaMinima = distancia;
+                tarjetaMasCercana = tarjeta;
+            }
+        });
+
+        // Actualizamos la clase CSS
+        const tarjetaActivaAnterior = contenedor.querySelector('.activo');
+        if (tarjetaActivaAnterior) {
+            tarjetaActivaAnterior.classList.remove('activo');
+        }
+        tarjetaMasCercana.classList.add('activo');
     };
 
+    // Actualizamos al hacer scroll
     contenedor.addEventListener('scroll', () => requestAnimationFrame(actualizarActivo));
 
-    // 3. Arranque inicial sin animación
+    // 3. Arranque inicial sin animación (índice 1 es el primer juego real)
     setTimeout(() => moverA(cards[1], false), 50);
 
-    // 4. Lógica de flechas e infinito reducida a operadores ternarios
+    // 4. Lógica de flechas separada en condicionales IF / ELSE limpios
     if (btnPrev && btnNext) {
         btnPrev.addEventListener('click', () => {
             const activa = contenedor.querySelector('.activo');
-            moverA((activa === cards[1] || activa === cards[0]) ? cards[cards.length - 2] : activa.previousElementSibling);
+            
+            // Si retrocedemos y estamos en la primera (o su clon), saltamos al final
+            if (activa === cards[0] || activa === cards[1]) {
+                moverA(cards[cards.length - 2]); 
+            } else {
+                // Comportamiento normal: ir a la anterior
+                moverA(activa.previousElementSibling); 
+            }
         });
 
         btnNext.addEventListener('click', () => {
             const activa = contenedor.querySelector('.activo');
-            moverA((activa === cards[cards.length - 2] || activa === cards[cards.length - 1]) ? cards[1] : activa.nextElementSibling);
+            
+            // Si avanzamos y estamos en la última (o su clon), volvemos al principio
+            if (activa === cards[cards.length - 1] || activa === cards[cards.length - 2]) {
+                moverA(cards[1]); 
+            } else {
+                // Comportamiento normal: ir a la siguiente
+                moverA(activa.nextElementSibling); 
+            }
         });
     }
 }

@@ -7,6 +7,27 @@ function inicializarFormularios() {
   activarTogglesDeClave();
   activarCaptchaFalso();
   activarEnvioDeRegistro();
+  activarEnvioDeLogin();
+}
+function activarEnvioDeLogin() {
+  const formLogin = document.getElementById('form-login');
+  if (!formLogin) return;
+
+  formLogin.addEventListener('submit', (evento) => {
+    evento.preventDefault(); 
+
+    const email = document.getElementById('email').value;
+    const clave = document.getElementById('clave').value;
+    const msjError = document.getElementById('mensaje-error');
+
+    if (email === 'tudai@hitbox.com' && clave === '123456') {
+      msjError.style.display = 'none';
+      mostrarMensajeExito(); 
+      setTimeout(() => window.location.href = 'index.html', 1500); 
+    } else {
+      msjError.style.display = 'block';
+    }
+  });
 }
 
 /* Muestra u oculta el texto de cada campo de contraseña, y cambia

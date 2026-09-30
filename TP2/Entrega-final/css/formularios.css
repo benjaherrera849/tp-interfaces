@@ -228,6 +228,17 @@
 .mensaje-exito.visible .mensaje-exito__icono {
   animation: latirExito 0.6s ease;
 }
+/* mensaje de error simple */
+.mensaje-error {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
 
 @keyframes latirExito {
   0%   { transform: scale(0); }
