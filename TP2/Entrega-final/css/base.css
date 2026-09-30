@@ -106,12 +106,14 @@ input {
 .barra-carga {
   width: 250px;
   height: 1cqw;
+  border-radius: 20px;
   background-color: var(--color-superficie);
 }
 
 .barra-carga__progreso {
   height: 100%;
   width: 0%;
+  border-radius: 20px;
   background-color: var(--color-primario);
 }
 

@@ -11,7 +11,7 @@
     width: 100%;
     margin-bottom: 3rem;
     overflow: hidden; 
-    background: radial-gradient(ellipse 60% 50% at bottom center, #0dd8c727 0%, transparent 100%);
+    background: radial-gradient(ellipse 60% 50% at bottom center, #0dd8c721 0%, transparent 100%);
 }
 
 .hero-wrapper {
@@ -145,6 +145,7 @@
     padding: 1rem 0.5rem;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    scroll-snap-type: x mandatory;
 }
 .carrusel-contenedor::-webkit-scrollbar {
     display: none;
@@ -169,8 +170,8 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    background-color: var(--color-superficie);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    scroll-snap-align: center;
 }
 
 .card-game__bg {
@@ -270,6 +271,15 @@
     z-index: 10;
 }
 
+/* animacion del carrito de la card: */
+@keyframes vibracionCarrito {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-15deg) scale(1.2); }
+    50% { transform: rotate(15deg) scale(1.2); }
+    75% { transform: rotate(-10deg) scale(1.2); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
 /* ==========================================================
    HOVER MINIMALISTA
    Solo en dispositivos con mouse: en el celular no existe el
@@ -279,7 +289,7 @@
     .card-game:hover .card-game__bg {
         filter: brightness(0.6);
         transform: scale(1.05);
-    }
+    }   
 
     .card-game:hover .card-game__btn-plus {
         transform: translate(-50%, -50%);
@@ -288,6 +298,7 @@
 
     .card-game:hover .card-game__cart {
         color: var(--color-secundario);
+        animation: vibracionCarrito 0.5s ease-in-out forwards;
     }
 }
 
@@ -358,6 +369,7 @@
     .card-game {
         width: 300px;
         height: 220px;
+        flex-shrink: 0;
     }
 
     .carrusel-btn {
@@ -384,7 +396,6 @@
    EFECTO INERCIA EN CARRUSEL (Scroll Cinético)
    ========================================================== */
 .carrusel-contenedor {
-    scroll-snap-type: x mandatory;
     scroll-padding-inline: 2rem;
     transition: transform 0.3s ease-out;
     will-change: transform;
@@ -398,12 +409,6 @@
     transform: translateX(20px);
 }
 
-/* Limpiamos la transición de las cards para que no hagan doble animación */
-.card-game {
-    transition: filter 0.3s ease; 
-    scroll-snap-align: center;
-    flex-shrink: 0;
-}
 .categoria-seccion, .hero-section {
     /* Evita que el título de la sección quede tapado por tu Navbar superior. 
        Ajustá los 80px según el alto real de tu barra de navegación */
