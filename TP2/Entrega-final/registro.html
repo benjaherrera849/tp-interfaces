@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrarse</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@700&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/botones.css">
+  <link rel="stylesheet" href="css/formularios.css">
+
+  <!-- Ícono del mensaje de éxito -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="pagina-auth">
+
+  <div class="fondo-auth" aria-hidden="true"></div>
+
+  <main class="tarjeta-auth">
+    <div class="tarjeta-auth__header">
+      <h2 class="tarjeta-auth__titulo">Registrarse</h2>
+      <img src="assets/logo-cubo.png" alt="Logo de Hitbox" class="tarjeta-auth__logo">
+    </div>
+
+    <form id="form-registro">
+      <div class="campo">
+        <label for="nickname" class="campo__etiqueta">Nickname</label>
+        <div class="campo__caja">
+          <input type="text" id="nickname" name="nickname" class="campo__input" placeholder="Ingrese su nickname (opcional)...">
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="nombre" class="campo__etiqueta">Nombre y apellido</label>
+        <div class="campo__caja">
+          <input type="text" id="nombre" name="nombre" class="campo__input" placeholder="Ingrese su nombre y apellido..." required>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="edad" class="campo__etiqueta">Edad</label>
+        <div class="campo__caja">
+          <input type="number" id="edad" name="edad" class="campo__input" placeholder="Ingrese su edad..." min="1" required>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="email" class="campo__etiqueta">Email</label>
+        <div class="campo__caja">
+          <input type="email" id="email" name="email" class="campo__input" placeholder="Ingrese su mail..." required>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="clave" class="campo__etiqueta">Contraseña</label>
+        <div class="campo__caja">
+          <input type="password" id="clave" name="clave" class="campo__input campo__input--clave" placeholder="Ingrese su contraseña..." required>
+          <button type="button" class="campo__toggle" data-input="clave" aria-label="Mostrar contraseña" aria-pressed="false">
+            <i class="ph ph-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="repetir-clave" class="campo__etiqueta">Repetir contraseña</label>
+        <div class="campo__caja">
+          <input type="password" id="repetir-clave" name="repetir-clave" class="campo__input campo__input--clave" placeholder="Ingrese su contraseña nuevamente..." required>
+          <button type="button" class="campo__toggle" data-input="repetir-clave" aria-label="Mostrar contraseña" aria-pressed="false">
+            <i class="ph ph-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="captcha-falso">
+        <button type="button" class="captcha-falso__casilla" aria-label="No soy un robot" aria-pressed="false"></button>
+        <span class="captcha-falso__texto">No soy un robot (simulado, sin verificación real)</span>
+      </div>
+
+      <div class="tarjeta-auth__pie">
+        <button type="submit" class="boton boton--primario">Registrarse</button>
+        <p class="tarjeta-auth__pie-texto">
+          ¿Ya tenés una cuenta?
+          <a href="login.html" class="auth-enlace enlace">Iniciar sesión</a>
+        </p>
+      </div>
+    </form>
+  </main>
+
+  <!-- Mensaje de éxito: aparece al enviar el formulario con las contraseñas coincidentes -->
+  <div class="mensaje-exito" id="mensaje-exito">
+    <div class="mensaje-exito__tarjeta">
+      <i class="ph-fill ph-check-circle mensaje-exito__icono"></i>
+      <p class="mensaje-exito__texto">¡Cuenta creada con éxito!</p>
+    </div>
+  </div>
+
+  <script src="js/formularios.js"></script>
+</body>
+</html>

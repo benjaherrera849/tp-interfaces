@@ -46,8 +46,19 @@ h4 {
 }
 
 
-a {
+.enlace {
   color: var(--color-secundario);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.enlace:hover {
+  color: var(--color-secundario-luz);
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
 }
 
 img {

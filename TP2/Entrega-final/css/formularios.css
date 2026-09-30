@@ -1,0 +1,242 @@
+/* ==========================================================
+   formularios.css
+   Estilos para login.html y registro.html.
+   Los botones (.boton) ya están definidos en botones.css.
+   ========================================================== */
+
+/* Página completa: fondo con imagen borrosa y la tarjeta centrada */
+.pagina-auth {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: safe center;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.fondo-auth {
+  position: fixed;
+  inset: 0;
+  background-image: url("../assets/fondo-login.jpg");
+  background-size: cover;
+  background-position: center;
+  /* scale(1.1) evita que se vean bordes nítidos al difuminar la imagen */
+  filter: blur(20px);
+  transform: scale(1.1);
+}
+
+/* Tarjeta del formulario */
+.tarjeta-auth {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background-color: var(--color-superficie);
+  border-radius: 1.875rem;
+  padding: 2rem 2rem 2.5rem;
+}
+
+.tarjeta-auth__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+/* El tamaño y el peso ya los define base.css para <h2>; acá solo se cambia el color */
+.tarjeta-auth__titulo {
+  color: var(--color-primario);
+}
+
+.tarjeta-auth__logo {
+  height: 64px;
+}
+
+/* Cada campo: etiqueta arriba + input */
+.campo {
+  margin-bottom: 1.5rem;
+}
+
+.campo__etiqueta {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: var(--h3);
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.campo__caja {
+  position: relative;
+}
+
+.campo__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 1.25rem;
+  /* mismo color que --color-borde: en el Figma es el mismo tono
+     (fondo-luz-2), reutilizado acá como fondo de los inputs */
+  background-color: var(--color-borde);
+  color: var(--color-texto);
+  font-size: var(--body-small);
+}
+
+.campo__input::placeholder {
+  color: var(--color-placeholder);
+}
+
+/* Espacio para el ícono del ojo en los campos de contraseña */
+.campo__input--clave {
+  padding-right: 3rem;
+}
+
+.campo__toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.campo__toggle i {
+  font-size: 1.25rem;
+  color: var(--color-texto);
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.campo__toggle:hover i {
+  opacity: 1;
+}
+
+/* Links (recuperar clave, ir a registro/login) */
+.auth-enlace {
+  color: var(--color-secundario);
+  font-size: var(--h4);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.auth-enlace:hover {
+  color: var(--color-secundario-luz);
+}
+
+.campo__olvido {
+  display: block;
+  margin-top: 0.5rem;
+  text-align: right;
+}
+
+/* Pie de la tarjeta: botón + texto de ayuda */
+.tarjeta-auth__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.tarjeta-auth__pie-texto {
+  color: var(--color-texto);
+  font-size: var(--body-large);
+  text-align: right;
+}
+
+.tarjeta-auth__pie-texto .auth-enlace {
+  display: block;
+}
+
+/* Casilla estilo "no soy un robot" (decorativa, sin backend) */
+.captcha-falso {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-borde);
+  border-radius: 1rem;
+}
+
+.captcha-falso__casilla {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-placeholder);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.captcha-falso__casilla.marcada {
+  background-color: var(--color-secundario);
+  border-color: var(--color-secundario);
+}
+
+.captcha-falso__texto {
+  color: var(--color-texto);
+  font-size: var(--body-small);
+}
+
+/* ==========================================================
+   Mensaje de éxito al registrarse (punto 1.b de la consigna)
+   ========================================================== */
+.mensaje-exito {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(21, 18, 30, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.mensaje-exito.visible {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.mensaje-exito__tarjeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2.5rem 3rem;
+  background-color: var(--color-superficie);
+  border-radius: 1.5rem;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.mensaje-exito.visible .mensaje-exito__tarjeta {
+  transform: scale(1);
+}
+
+.mensaje-exito__icono {
+  font-size: 4rem;
+  color: var(--color-secundario);
+}
+
+/* El ícono "late" al aparecer */
+.mensaje-exito.visible .mensaje-exito__icono {
+  animation: latirExito 0.6s ease;
+}
+
+@keyframes latirExito {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.mensaje-exito__texto {
+  color: var(--color-texto);
+  font-size: var(--h3);
+  font-weight: 600;
+}

@@ -4,6 +4,8 @@ function inicializarHeader() {
     const contenedorBuscador = document.querySelector('.header__grupo--centro');
     const btnLupa = document.getElementById('btn-lupa');
     const inputBuscador = document.getElementById('input-buscador');
+    const btnCarrito = document.getElementById('btn-carrito');
+    const carritoPanel = document.getElementById('carrito-panel');
 
     // Hamburguesa a "X" + mostrar/ocultar la sidebar
     if (btnMenu && sidebar) {
@@ -20,6 +22,13 @@ function inicializarHeader() {
             if (contenedorBuscador.classList.contains('mostrar-buscador')) {
                 inputBuscador.focus();
             }
+        });
+    }
+
+    // Carrito: abre y cierra el panel desplegable
+    if (btnCarrito && carritoPanel) {
+        btnCarrito.addEventListener('click', () => {
+            carritoPanel.classList.toggle('abierto');
         });
     }
 }
