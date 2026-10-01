@@ -12,10 +12,13 @@ async function cargarJuegos() {
         const juegosHero = [...juegos].sort((a, b) => b.rating - a.rating).slice(0, 8);
         
         // agrega clones visuales para tapar los huecos
+        // Agrega 2 clones de cada lado para tapar los huecos en pantallas grandes
         const juegosSinHuecos = [
-            juegosHero[juegosHero.length - 1], // clon del ultimo para tapar el hueco izquierdo
+            juegosHero[juegosHero.length - 2], // penúltimo
+            juegosHero[juegosHero.length - 1], // último
             ...juegosHero,                     // Los 8 reales
-            juegosHero[0]                      // clon del primero para tapar el hueco derecho
+            juegosHero[0],                     // primero
+            juegosHero[1]                      // segundo
         ];
 
 
@@ -53,8 +56,8 @@ function renderizarCarruselHero(listaJuegos, contenedorId) {
     contenedor.innerHTML = '';
 
     listaJuegos.forEach((juego, index) => {
-        // La tarjeta de índice 1 (segunda) comienza activa lógicamente
-        const claseActiva = index === 1 ? 'activo' : '';
+        // La tarjeta de índice 2 comienza activa lógicamente
+        const claseActiva = index === 2 ? 'activo' : '';
         const generoPrincipal = juego.genres.length > 0 ? juego.genres[0].name : 'Top';
 
         const cardHTML = `
@@ -155,19 +158,18 @@ function inicializarFlechasHero() {
     // Actualizamos al hacer scroll
     contenedor.addEventListener('scroll', () => requestAnimationFrame(actualizarActivo));
 
-    // 3. Arranque inicial sin animación (índice 1 es el primer juego real)
-    setTimeout(() => moverA(cards[1], false), 50);
+    // 3. Arranque inicial sin animación (índice 2 es el primer juego real)
+    setTimeout(() => moverA(cards[2], false), 50);
 
     // 4. Lógica de flechas separada en condicionales IF / ELSE limpios
     if (btnPrev && btnNext) {
         btnPrev.addEventListener('click', () => {
             const activa = contenedor.querySelector('.activo');
             
-            // Si retrocedemos y estamos en la primera (o su clon), saltamos al final
-            if (activa === cards[0] || activa === cards[1]) {
-                moverA(cards[cards.length - 2]); 
+            // Contempla los 2 clones izquierdos y el primer elemento
+            if (activa === cards[0] || activa === cards[1] || activa === cards[2]) {
+                moverA(cards[cards.length - 3]); 
             } else {
-                // Comportamiento normal: ir a la anterior
                 moverA(activa.previousElementSibling); 
             }
         });
@@ -175,11 +177,10 @@ function inicializarFlechasHero() {
         btnNext.addEventListener('click', () => {
             const activa = contenedor.querySelector('.activo');
             
-            // Si avanzamos y estamos en la última (o su clon), volvemos al principio
-            if (activa === cards[cards.length - 1] || activa === cards[cards.length - 2]) {
-                moverA(cards[1]); 
+            // Contempla los 2 clones derechos y el último elemento
+            if (activa === cards[cards.length - 1] || activa === cards[cards.length - 2] || activa === cards[cards.length - 3]) {
+                moverA(cards[2]); 
             } else {
-                // Comportamiento normal: ir a la siguiente
                 moverA(activa.nextElementSibling); 
             }
         });
