@@ -77,9 +77,11 @@
         </div>
       </div>
 
-      <div class="captcha-falso">
-        <button type="button" class="captcha-falso__casilla" aria-label="No soy un robot" aria-pressed="false"></button>
-        <span class="captcha-falso__texto">No soy un robot (simulado, sin verificación real)</span>
+      <!-- Captcha decorativo: solo visual, no se tilda ni se verifica -->
+      <img src="assets/captcha.jpg" alt="Casilla de verificación no soy un robot (decorativa)" class="captcha-imagen">
+
+      <div id="mensaje-error" class="mensaje-error" style="display: none;">
+        Las contraseñas no coinciden.
       </div>
 
       <div class="tarjeta-auth__pie">

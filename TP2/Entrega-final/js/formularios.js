@@ -5,7 +5,6 @@
 
 function inicializarFormularios() {
   activarTogglesDeClave();
-  activarCaptchaFalso();
   activarEnvioDeRegistro();
   activarEnvioDeLogin();
 }
@@ -49,16 +48,6 @@ function activarTogglesDeClave() {
   });
 }
 
-/* Casilla "no soy un robot": decorativa, no valida nada (no hay backend). */
-function activarCaptchaFalso() {
-  const casilla = document.querySelector('.captcha-falso__casilla');
-  if (!casilla) return;
-
-  casilla.addEventListener('click', () => {
-    casilla.classList.toggle('marcada');
-  });
-}
-
 /* Al registrarse: valida que las contraseñas coincidan y,
    si está todo bien, muestra el mensaje de éxito animado. */
 function activarEnvioDeRegistro() {
@@ -70,13 +59,16 @@ function activarEnvioDeRegistro() {
 
     const clave = document.getElementById('clave').value;
     const repetirClave = document.getElementById('repetir-clave').value;
+    const msjError = document.getElementById('mensaje-error');
 
-    if (clave !== repetirClave) {
-      alert('Las contraseñas no coinciden.');
-      return;
+    if (clave == repetirClave) {
+      msjError.style.display = 'none';
+      mostrarMensajeExito();
+      setTimeout(() => window.location.href = 'index.html', 1500);
+    }else{
+
+     msjError.style.display = 'block';
     }
-
-    mostrarMensajeExito();
   });
 }
 
