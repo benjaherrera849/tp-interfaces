@@ -1,0 +1,205 @@
+/* ==========================================================
+   BLOCKA (Diseño Gaming Moderno 3 Columnas)
+   ========================================================== */
+.blocka-contenedor {
+  position: relative;
+  background-image: url('../assets/blocka/fondoejecucion.jpg'); 
+  background-size: cover;
+  background-position: top center; /* Fija la imagen arriba para ver el título */
+  background-repeat: no-repeat;
+  
+  /* Padding top de 7rem empuja el contenido hacia abajo para no tapar el título */
+  padding: 7rem 2rem 3rem 2rem; 
+  border-radius: 1rem;
+  
+  /* Layout de 3 columnas horizontales */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  min-height: 550px;
+}
+
+.blocka-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 2; /* Asegura que el contenido quede por encima del fondo */
+}
+
+/* --- Panel Izquierdo (HUD Estadísticas) --- */
+.blocka-stats {
+  flex: 1;
+  max-width: 250px;
+}
+
+.hud-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(15, 15, 25, 0.95); /* Fondo sólido, elimina la transparencia no deseada */
+  border: 1px solid rgba(0, 229, 255, 0.3); /* Borde sutil cyan */
+  padding: 1rem;
+  border-radius: 0.75rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.hud-item i {
+  font-size: 2.2rem;
+  color: #00e5ff; 
+}
+
+.hud-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #8892b0;
+}
+
+.hud-valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--fuente-titulo), sans-serif;
+  color: #ffffff;
+}
+/* para el máximo/record: */
+.hud-item.alerta i {
+  color: #ff2a6d; 
+}
+.hud-item.alerta {
+  border-color: rgba(255, 42, 109, 0.4);
+}
+
+/* --- Panel Central (Tablero) --- */
+.blocka-tablero {
+  flex: 2;
+  align-items: center;
+}
+
+.grilla-blocka {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: #000000; /* Fondo totalmente negro sólido para que no trasluzca */
+  padding: 6px;
+  border-radius: 12px;
+  border: 2px solid #00e5ff;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+/* Nota: La transparencia del 50% y escala de grises solo se ven ANTES de darle a "Comenzar" */
+.grilla-blocka.inactivo {
+  opacity: 0.5; 
+  pointer-events: none;
+  filter: grayscale(80%);
+}
+
+.pieza-blocka {
+  width: 100%;
+  max-width: 250px; /* Tamaño generoso para las piezas */
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 4px;
+}
+
+/* --- Panel Derecho (Botones Gaming) --- */
+.blocka-controles {
+  flex: 1;
+  max-width: 250px;
+}
+
+.boton-gaming {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.boton-gaming i {
+  font-size: 1.5rem;
+}
+
+.boton-gaming.btn-comenzar {
+  background: linear-gradient(135deg, #00e5ff, #0077ff);
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+}
+
+.boton-gaming.btn-comenzar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.8);
+}
+
+.boton-gaming.btn-ayuda {
+  background: rgba(15, 15, 25, 0.95);
+  color: #ffb703; /* Amarillo neón */
+  border: 1px solid #ffb703;
+}
+
+.boton-gaming.btn-ayuda:not(:disabled):hover {
+  background: rgba(255, 183, 3, 0.15);
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
+}
+
+.boton-gaming:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+.blocka-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Fondo muy oscuro para tapar el juego */
+  backdrop-filter: blur(4px); /* Difumina lo que hay atrás */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 1rem;
+}
+
+.blocka-modal.oculto {
+  display: none; /* La clase que lo esconde */
+}
+
+/* MODAL DE AVISOS (Victoria / Derrota) */
+
+.modal-contenido {
+  background: rgba(15, 15, 25, 0.95);
+  border: 2px solid #00e5ff;
+  padding: 3rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.modal-contenido h3 {
+  font-size: 2rem;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+}

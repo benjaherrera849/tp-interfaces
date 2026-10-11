@@ -199,8 +199,8 @@ function inicializarFlechasNormales() {
                 setTimeout(() => contenedor.classList.remove(clase), 250);
             };
 
-            btnPrev.addEventListener('click', () => moverConInercia(-1200, 'scroll-izq'));
-            btnNext.addEventListener('click', () => moverConInercia(1200, 'scroll-der'));
+            btnPrev.addEventListener('click', () => moverConInercia(-1600, 'scroll-izq'));
+            btnNext.addEventListener('click', () => moverConInercia(1600, 'scroll-der'));
         }
     });
 }

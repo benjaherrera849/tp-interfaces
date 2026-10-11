@@ -44,8 +44,8 @@
     overflow: hidden;
     scroll-snap-align: center;
     filter: brightness(0.4);
-    transform: scale(0.85) rotateY(10deg);
-    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.7s ease, box-shadow 0.7s ease;
+    transform: scale(0.85) rotateY(25deg);
+    transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), filter 0.9s ease, box-shadow 0.9s ease;
     will-change: transform, filter;
     cursor: pointer;
 }
@@ -58,7 +58,7 @@
     z-index: 2;
 }
 .hero-card.activo ~ .hero-card {
-    transform: scale(0.85) rotateY(-10deg);
+    transform: scale(0.85) rotateY(-25deg);
 }
 
 .hero-card__img {
@@ -75,8 +75,7 @@
     width: 100%;
     padding: 2rem 1.5rem;
     background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
-    
-    /* Animación de entrada elegante (Slide Up) */
+
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);

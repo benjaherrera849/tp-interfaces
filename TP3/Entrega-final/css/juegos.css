@@ -1,0 +1,416 @@
+/* ==========================================================
+   CARRUSELES  (mobile first)
+   Los estilos base son los del celular; lo de escritorio está
+   al final, en @media (min-width: 768px).
+   ========================================================== */
+
+/* ==========================================================
+   HERO CONTENEDOR 
+   ========================================================== */
+.hero-section {
+    width: 100%;
+    margin-bottom: 3rem;
+    overflow: hidden; 
+    background: radial-gradient(ellipse 60% 50% at bottom center, #0dd8c721 0%, transparent 100%);
+}
+
+.hero-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.hero-contenedor {
+    perspective: 3000px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; 
+    padding: 2rem calc(50vw - 140px);
+}
+
+.hero-contenedor::-webkit-scrollbar { display: none; }
+
+.hero-card {
+    flex: 0 0 280px;
+    height: 200px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: center;
+    filter: brightness(0.4);
+    transform: scale(0.85) rotateY(25deg);
+    transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), filter 0.9s ease, box-shadow 0.9s ease;
+    will-change: transform, filter;
+    cursor: pointer;
+}
+
+/* El estado activo recupera la escala original y el brillo */
+.hero-card.activo {
+    filter: brightness(1);
+    transform: scale(1) rotateY(0deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.1);
+    z-index: 2;
+}
+.hero-card.activo ~ .hero-card {
+    transform: scale(0.85) rotateY(-25deg);
+}
+
+.hero-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Información de la tarjeta (Oculta por defecto) */
+.hero-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%);
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+}
+
+.hero-card.activo .hero-card__info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-card__titulo {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: var(--color-texto);
+    font-weight: 700;
+}
+
+.hero-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem; 
+    font-size: 0.7rem;
+}
+
+.badge-categoria, .badge-estado {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-destacado {
+    border: 1px solid var(--color-secundario);
+    color: var(--color-secundario);
+    background-color: transparent;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px; 
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hero-btn { display: none; }
+
+.categoria-seccion {
+    margin-bottom: 1rem;
+}
+
+.categoria-titulo {
+    font-size: var(--h4);
+    font-family: var(--fuente-principal);
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+
+.carrusel-contenedor {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0.5rem;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+.carrusel-contenedor::-webkit-scrollbar {
+    display: none;
+}
+.carrusel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.carrusel-btn {
+    display: none; /* Oculto en mobile */
+}
+
+/* ==========================================================
+   CARDS
+   ========================================================== */
+.card-game {
+    flex: 0 0 auto;
+    width: 240px;
+    height: 180px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    scroll-snap-align: center;
+}
+
+.card-game__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.card-game__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(15,15,20,0.95) 100%);
+    z-index: 2;
+}
+
+.card-game__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Badge minimalista: Fondo oscuro, texto turquesa */
+.card-game__badge {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--color-secundario);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--fuente-principal);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    backdrop-filter: blur(4px);
+}
+
+.card-game__rating {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fbbf24;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    backdrop-filter: blur(4px);
+}
+
+.card-game__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.card-game__title {
+    color: var(--color-texto);
+    font-family: var(--fuente-principal);
+    font-size: 0.9rem;
+    font-weight: 600;
+    max-width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-game__cart {
+    color: var(--color-texto);
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+/* Botón "+" del hover: escondido hasta que se pase el mouse */
+.card-game__btn-plus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-primario);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* animacion del carrito de la card: */
+@keyframes vibracionCarrito {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-15deg) scale(1.2); }
+    50% { transform: rotate(15deg) scale(1.2); }
+    75% { transform: rotate(-10deg) scale(1.2); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+/* ==========================================================
+   HOVER MINIMALISTA
+   Solo en dispositivos con mouse: en el celular no existe el
+   hover y el efecto quedaría "pegado" después de tocar.
+   ========================================================== */
+@media (hover: hover) {
+    .card-game:hover .card-game__bg {
+        filter: brightness(0.6);
+        transform: scale(1.05);
+    }   
+
+    .card-game:hover .card-game__btn-plus {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    .card-game:hover .card-game__cart {
+        color: var(--color-secundario);
+        animation: vibracionCarrito 0.5s ease-in-out forwards;
+    }
+}
+
+/* ==========================================================
+   ESCRITORIO (768px o más)
+   ========================================================== */
+@media (min-width: 768px) {
+.hero-contenedor {
+        gap: 0.9rem;
+        /* Recálculo del padding mágico para tarjeta de escritorio de 500px */
+        padding: 2rem calc(50vw - 250px); 
+    }
+
+    .hero-card {
+        flex: 0 0 500px;
+        height: 300px;
+    }
+
+    .hero-btn {
+        display: flex;
+        position: absolute;
+        z-index: 20;
+        background: none;
+        border: none;
+        color: var(--color-primario);
+        font-size: 3rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s;
+    }
+
+    .hero-btn:hover {
+        transform: scale(1.15);
+        color: var(--color-secundario);
+    }
+    .hero-card__info {
+        padding: 2rem 1.5rem; /* Volvemos al padding generoso */
+    }
+
+    .hero-card__titulo {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-card__badges {
+        gap: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .badge-categoria, .badge-estado {
+        padding: 0.3rem 0.6rem;
+    }
+
+    .badge-destacado {
+        padding: 0.3rem 0.8rem;
+    }
+
+    .hero-btn--prev { left: 60px; }
+    .hero-btn--next { right: 60px; }
+    
+    .categoria-titulo {
+        font-size: var(--h3);
+    }
+
+    .carrusel-contenedor {
+        gap: 1.5rem;
+    }
+
+    .card-game {
+        width: 300px;
+        height: 220px;
+        flex-shrink: 0;
+    }
+
+    .carrusel-btn {
+        display: flex;
+        position: absolute;
+        z-index: 10;
+        background: none;
+        border: none;
+        color: var(--color-primario);
+        font-size: 2.5rem;
+        cursor: pointer;
+        transition: transform 0.5s ease, color 0.5s ease;
+    }
+
+    .carrusel-btn:hover {
+        transform: scale(1.15);
+        color: var(--color-secundario);
+    }
+
+    .carrusel-btn--prev { left: -15px; }
+    .carrusel-btn--next { right: -15px; }
+
+/* ==========================================================
+   EFECTO INERCIA EN CARRUSEL (Scroll Cinético)
+   ========================================================== */
+.carrusel-contenedor {
+    scroll-padding-inline: 2rem;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.carrusel-contenedor.scroll-der {
+    transform: translateX(-20px);
+}
+
+.carrusel-contenedor.scroll-izq {
+    transform: translateX(20px);
+}
+
+.categoria-seccion, .hero-section {
+    /* Evita que el título de la sección quede tapado por tu Navbar superior. 
+       Ajustá los 80px según el alto real de tu barra de navegación */
+    scroll-margin-top: 80px; 
+}
+}

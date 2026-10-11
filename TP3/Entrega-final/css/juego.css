@@ -1,0 +1,347 @@
+/* ==========================================================
+   juego.css
+   Estilos de la página de ejecución de un juego:
+   breadcrumbs, pantalla del juego, descripción con galería,
+   "Cómo jugar" y el panel de Comunidad.
+   ========================================================== */
+
+/* Un link turquesa subrayado, se repite varias veces en la página */
+.enlace {
+  color: var(--color-secundario);
+  font-size: var(--h4);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.enlace:hover {
+  color: var(--color-secundario-luz);
+}
+
+/* ==========================================================
+   Breadcrumbs
+   ========================================================== */
+.breadcrumbs {
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  font-size: var(--h4);
+  font-weight: 600;
+  color: var(--color-acento-luz);
+}
+
+.breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+
+/* ==========================================================
+   Layout: contenido principal + panel de Comunidad
+   ========================================================== */
+.pagina-juego {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.pagina-juego__principal {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ==========================================================
+   Pantalla del juego (captura estática, no jugable)
+   ========================================================== */
+.pantalla-juego {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.pantalla-juego__imagen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.pantalla-juego__controles {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.pantalla-juego__control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  color: var(--color-texto);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* ==========================================================
+   Descripción del juego
+   ========================================================== */
+.descripcion-juego__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.descripcion-juego__titulo {
+  color: var(--color-texto);
+}
+
+.descripcion-juego__cuerpo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Galería de imágenes (carrusel simple con fundido) --- */
+.galeria-juego {
+  flex: 1 1 320px;
+}
+
+.galeria-juego__marco {
+  position: relative;
+  aspect-ratio: 315 / 195;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: var(--color-superficie);
+}
+
+.galeria-juego__imagen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.galeria-juego__imagen.activa {
+  opacity: 1;
+}
+
+.galeria-juego__puntos {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.galeria-juego__punto {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-borde);
+  cursor: pointer;
+}
+
+.galeria-juego__punto.activo {
+  background-color: var(--color-secundario);
+}
+
+/* --- Info del juego (desarrollador, calificación, fecha) --- */
+.info-juego {
+  flex: 1 1 220px;
+}
+
+.info-juego__fila {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: var(--body-large);
+}
+
+.info-juego__fila dt {
+  color: var(--color-placeholder);
+}
+
+.info-juego__fila dd {
+  color: var(--color-texto);
+  font-weight: 500;
+}
+
+/* ==========================================================
+   Cómo jugar
+   ========================================================== */
+.como-jugar__titulo {
+  color: var(--color-primario);
+  margin-bottom: 1rem;
+}
+
+.como-jugar__reglas {
+  max-width: 65ch;
+  margin-bottom: 1.5rem;
+  padding-left: 1.25rem;
+  font-size: var(--body-large);
+  line-height: 1.6;
+}
+
+.como-jugar__reglas li {
+  margin-bottom: 0.75rem;
+}
+
+/* Miniatura del video con botón de play superpuesto */
+.como-jugar__video {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 388px;
+  aspect-ratio: 388 / 361;
+  padding: 0;
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.como-jugar__miniatura {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.como-jugar__icono-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3.5rem;
+  color: var(--color-texto);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================
+   Panel de Comunidad
+   ========================================================== */
+.comunidad {
+  flex: 0 0 320px;
+  padding: 1.5rem;
+  background-color: var(--color-superficie);
+  border-radius: 1rem;
+}
+
+.comunidad__titulo {
+  margin-bottom: 1.5rem;
+}
+
+/* --- Formulario para escribir una reseña --- */
+.resena-form {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--color-borde);
+  border-radius: 1rem;
+}
+
+.resena-form__texto {
+  width: 100%;
+  min-height: 5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  resize: vertical;
+  color: var(--color-texto);
+  font-family: var(--fuente-principal);
+  font-size: var(--body-small);
+}
+
+.resena-form__texto::placeholder {
+  color: var(--color-placeholder);
+}
+
+.resena-form__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.resena-form__puntaje-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--body-small);
+}
+
+.resena-form__puntaje {
+  width: 3rem;
+  padding: 0.25rem;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-placeholder);
+  border-radius: 0.4rem;
+  color: var(--color-texto);
+  text-align: center;
+}
+
+/* --- Lista de reseñas --- */
+.resenas__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.resena {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--color-borde);
+  border-radius: 1rem;
+}
+
+.resena__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: var(--h4);
+  font-weight: 600;
+}
+
+.resena__puntaje {
+  font-weight: 500;
+}
+
+.resena__texto {
+  font-size: var(--body-small);
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   ESCRITORIO (768px o más)
+   El enunciado pide esta página solo para escritorio.
+   ========================================================== */
+@media (min-width: 768px) {
+  .descripcion-juego__cuerpo {
+    flex-wrap: nowrap;
+  }
+}

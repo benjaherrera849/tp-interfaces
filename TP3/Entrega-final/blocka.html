@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blocka</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@700&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/blocka.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/botones.css">
+  <link rel="stylesheet" href="css/juego.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+<div id="header-container"></div>
+
+<div class="app-layout">
+  <div id="sidebar-container"></div>
+
+<main class="contenido-principal">
+
+  <!-- Migas de pan (Breadcrumbs) -->
+  <nav class="breadcrumbs" aria-label="Ruta de navegación">
+    <ol>
+      <li><a href="index.html" class="enlace">Home</a>></li>
+      <li><a href="biblioteca.html" class="enlace">Juegos</a>></li>
+      <li><a href="index.html#puzzle" class="enlace">Puzzle</a>></li>
+      <li aria-current="page">Blocka</li>
+    </ol>
+  </nav>
+
+  <!-- Contenedor flex a dos columnas (Juego a la izq, Comunidad a la der) -->
+    <div class="pagina-juego">
+    
+    <!-- COLUMNA IZQUIERDA: Todo lo del juego -->
+    <div class="pagina-juego__principal">
+
+      <!-- 1. PANTALLA DEL JUEGO -->
+      <section class="pantalla-juego blocka-contenedor">
+        
+        <!-- Columna Izquierda: HUD de Estadísticas -->
+        <div class="blocka-columna blocka-stats">
+          <div class="hud-item">
+            <i class="ph-fill ph-ranking"></i>
+            <div class="hud-info">
+              <span class="hud-label">NIVEL</span>
+              <span class="hud-valor" id="nivel-actual">1</span>
+            </div>
+          </div>
+          <div class="hud-item">
+            <i class="ph-fill ph-timer"></i>
+            <div class="hud-info">
+              <span class="hud-label">TIEMPO</span>
+              <span class="hud-valor"><span id="temporizador">0</span>s</span>
+            </div>
+          </div>
+          <div class="hud-item alerta">
+            <i class="ph-fill ph-warning-octagon"></i>
+            <div class="hud-info">
+              <span class="hud-label">MÁXIMO</span>
+              <span class="hud-valor"><span id="tiempo-maximo">27</span>s</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Columna Central: El Tablero Canvas -->
+        <div class="blocka-columna blocka-tablero">
+          <div id="grilla-blocka" class="grilla-blocka inactivo">
+            <canvas id="pieza-0" class="pieza-blocka"></canvas>
+            <canvas id="pieza-1" class="pieza-blocka"></canvas>
+            <canvas id="pieza-2" class="pieza-blocka"></canvas>
+            <canvas id="pieza-3" class="pieza-blocka"></canvas>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Botones de Acción -->
+        <div class="blocka-columna blocka-controles">
+          <button id="btn-comenzar" class="boton-gaming btn-comenzar">
+            <i class="ph-fill ph-play-circle"></i>
+            <span>Comenzar Nivel</span>
+          </button>
+          <button id="btn-ayuda" class="boton-gaming btn-ayuda" disabled>
+            <i class="ph-fill ph-lightbulb"></i>
+            <span>Ayudita (+5s)</span>
+          </button>
+        </div>
+        <div id="blocka-modal" class="blocka-modal oculto">
+          <div class="modal-contenido">
+            <h3 id="modal-mensaje">Mensaje</h3>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+              <button id="btn-modal-accion" class="boton-gaming btn-comenzar">
+                <span>Continuar</span>
+              </button>
+              <button class="boton-gaming btn-ayuda" onclick="window.location.href='index.html'">
+                <i class="ph-fill ph-house"></i>
+                <span>Menú</span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 2. DESCRIPCIÓN DEL JUEGO -->
+      <section class="descripcion-juego">
+        <div class="descripcion-juego__encabezado">
+          <h2 class="descripcion-juego__titulo">Blocka: Rompecabezas Visual</h2>
+          <button class="boton boton--fantasma">
+            <i class="ph ph-share-network"></i> Compartir
+          </button>
+        </div>
+
+        <div class="descripcion-juego__cuerpo">
+          <div class="galeria-juego">
+            <div class="galeria-juego__marco">
+              <img src="assets/blocka/muestrablocka.jpg" alt="Muestra de Blocka" class="galeria-juego__imagen activa">
+              <img src="assets/blocka/muestrablocka2.jpg" alt="Filtros Blocka" class="galeria-juego__imagen">
+            </div>
+            <div class="galeria-juego__puntos">
+              <button class="galeria-juego__punto activo" aria-label="Mostrar imagen 1"></button>
+              <button class="galeria-juego__punto" aria-label="Mostrar imagen 2"></button>
+            </div>
+          </div>
+
+          <dl class="info-juego">
+            <div class="info-juego__fila">
+              <dt>Categoría:</dt>
+              <dd>Puzzle / Lógica</dd>
+            </div>
+            <div class="info-juego__fila">
+              <dt>Dificultad:</dt>
+              <dd>Progresiva</dd>
+            </div>
+            <div class="info-juego__fila">
+              <dt>Desarrollador:</dt>
+              <dd>Hitbox Studio</dd>
+            </div>
+            <div class="info-juego__fila">
+              <dt>Calificacion:</dt>
+              <dd>10/10</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- 3. CÓMO JUGAR -->
+      <section class="como-jugar">
+        <h2 class="como-jugar__titulo">Instrucciones de Juego</h2>
+        <ul class="como-jugar__reglas">
+          <li>La imagen aparecerá dividida en 4 cuadrantes desordenados y con un filtro visual para aumentar la dificultad.</li>
+          <li>Hacé <strong>clic izquierdo</strong> en una pieza para girarla hacia la izquierda.</li>
+          <li>Hacé <strong>clic derecho</strong> en una pieza para girarla hacia la derecha.</li>
+          <li>Acomodá las 4 piezas en su posición original (0 grados) antes de que el temporizador llegue al tiempo máximo.</li>
+          <li>Si te trabás, usá el botón "Ayudita" para acomodar una pieza, pero cuidado, sumará 5 segundos a tu tiempo.</li>
+          <li>Al ganar, el filtro desaparecerá y avanzarás al siguiente nivel con menos tiempo límite.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <!-- COLUMNA DERECHA: Comunidad y reseñas -->
+    <aside class="comunidad">
+      <h2 class="comunidad__titulo">COMUNIDAD</h2>
+
+      <form id="form-resena" class="resena-form">
+        <textarea id="texto-resena" class="resena-form__texto" placeholder="Escribe una reseña..."></textarea>
+
+        <div class="resena-form__pie">
+          <label for="puntaje-resena" class="resena-form__puntaje-label">
+            Calificación:
+            <input type="number" id="puntaje-resena" class="resena-form__puntaje" min="0" max="10">
+            /10
+          </label>
+          <button type="submit" class="boton boton--secundario">Enviar</button>
+        </div>
+      </form>
+
+      <div class="resenas">
+        <div class="resenas__encabezado">
+          <h3>Mas reseñas</h3>
+        </div>
+
+        <div id="lista-resenas">
+          <article class="resena">
+            <header class="resena__encabezado">
+              <span class="resena__usuario">CarlaGamer22</span>
+              <span class="resena__puntaje">10/10</span>
+            </header>
+            <p class="resena__texto">Espectacular el nivel en negativo, me costó un montón pero es muy adictivo.</p>
+          </article>
+          <article class="resena">
+            <header class="resena__encabezado">
+              <span class="resena__usuario">FitoRetro</span>
+              <span class="resena__puntaje">8/10</span>
+            </header>
+            <p class="resena__texto">Buena mecánica, pero el tiempo del nivel 3 no perdona nada.</p>
+          </article>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+</main>
+<script src="js/header.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/main.js"></script>
+<script src="js/juego.js"></script>
+<script src="js/blocka.js"></script>

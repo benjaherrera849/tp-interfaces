@@ -1,0 +1,154 @@
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-principal);
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.4;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-family: var(--fuente-titulo);
+  font-size: var(--h1);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--h2);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: var(--h3);
+  font-weight: 600;
+}
+
+h4 {
+  font-size: var(--h4);
+  font-weight: 600;
+}
+
+
+.enlace {
+  color: var(--color-secundario);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.enlace:hover {
+  color: var(--color-secundario-luz);
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+/* Contorno visible al navegar con el teclado */
+:focus-visible {
+  outline: 2px solid var(--color-secundario);
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   LAYOUT: header + sidebar + contenido (mobile first)
+   ========================================================== */
+
+/* main.js inyecta el header y el sidebar dentro de estos contenedores.
+   Con display: contents no generan caja propia: el header y el sidebar
+   pasan a ser hijos directos de la página y "sticky" funciona. */
+#header-container,
+#sidebar-container {
+  display: contents;
+}
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - var(--alto-header));
+}
+
+.contenido-principal {
+  flex-grow: 1;
+  min-width: 0; /* deja que los carruseles hagan scroll sin ensanchar la página */
+  padding: 1rem;
+}
+
+.logo-carga{
+  width: auto;
+  height: 60px;
+  animation: girar 5s linear infinite;
+}
+
+@keyframes girar {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg) scale(1.3) }
+  100% { transform: rotate(360deg) scale(1.0); }
+}
+
+.barra-carga {
+  width: 250px;
+  height: 1cqw;
+  border-radius: 20px;
+  background-color: var(--color-superficie);
+}
+
+.barra-carga__progreso {
+  height: 100%;
+  width: 0%;
+  border-radius: 20px;
+  background-color: var(--color-primario);
+}
+
+.pantalla-carga{
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-fondo);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: var(--fuente-principal);
+}
+
+.pantalla-carga.oculta{
+  display: none;
+}
+
+/* Escritorio (768px o más) */
+@media (min-width: 768px) {
+  .contenido-principal {
+    padding: 2rem;
+  }
+}
