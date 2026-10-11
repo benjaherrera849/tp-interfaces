@@ -22,7 +22,7 @@ En la seccion "mis juegos" se encuentra el Blocka, al cual se podra acceder para
 
   . Un contador de tiempo de ejecucion del nivel
 
-  . El tiempo maximo que se actualiza por nivel (-5s), arranca en 27s (nivel 1).
+  . El tiempo maximo que se actualiza por nivel (-5s), arranca en 27s (nivel 1) y el tiempo maximo del ultimo nivel (6) son 5s.
   
   . El boton de comenzar nivel.
   
