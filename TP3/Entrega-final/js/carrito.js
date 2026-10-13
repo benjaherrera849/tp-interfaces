@@ -25,7 +25,7 @@ function renderizarCarrito() {
     }
 
     // Marca las cards que ya están en el carrito
-    document.querySelectorAll('.card-game__cart').forEach(boton => {
+    document.querySelectorAll('.card-game__cart, .card-game__btn-plus').forEach(boton => {
         boton.classList.toggle('en-carrito', carrito.some(item => item.id === boton.dataset.id));
     });
 }
@@ -50,7 +50,7 @@ function eliminarDelCarrito(id) {
 
 // Delegación en document: funciona aunque las cards se rendericen después (api.js)
 document.addEventListener('click', (e) => {
-    const botonAgregar = e.target.closest('.card-game__cart');
+    const botonAgregar = e.target.closest('.card-game__cart, .card-game__btn-plus');
     if (botonAgregar) {
         agregarAlCarrito({
             id: botonAgregar.dataset.id,

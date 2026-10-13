@@ -111,9 +111,9 @@ function renderizarCarrusel(listaJuegos, contenedorId, nombreCategoria) {
                     </div>
                 </div>
 
-                <div class="card-game__btn-plus">
+                <button class="card-game__btn-plus" data-id="${idJuego}" data-nombre="${nombreJuego}" data-imagen="${juego.background_image_low_res}" aria-label="Agregar ${nombreJuego} al carrito">
                     <i class="ph ph-plus"></i>
-                </div>
+                </button>
             </article>
         `;
         

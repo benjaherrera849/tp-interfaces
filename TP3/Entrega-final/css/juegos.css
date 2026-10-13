@@ -266,7 +266,9 @@
     width: 44px;
     height: 44px;
     background-color: var(--color-primario);
+    border: none;
     border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -276,6 +278,10 @@
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     z-index: 10;
+}
+
+.card-game__btn-plus.en-carrito {
+    background-color: var(--color-secundario);
 }
 
 /* animacion del carrito de la card: */
