@@ -76,6 +76,13 @@ function renderizarCarruselHero(listaJuegos, contenedorId) {
         contenedor.innerHTML += cardHTML;
     });
 }
+function escaparAtributo(texto) {
+    return String(texto ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('"', '&quot;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+}
 function renderizarCarrusel(listaJuegos, contenedorId, nombreCategoria) {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
@@ -83,6 +90,8 @@ function renderizarCarrusel(listaJuegos, contenedorId, nombreCategoria) {
     contenedor.innerHTML = '';
 
     listaJuegos.forEach(juego => {
+        const idJuego = escaparAtributo(juego.id ?? juego.name);
+        const nombreJuego = escaparAtributo(juego.name);
         const cardHTML = `
             <article class="card-game">
                 <img src="${juego.background_image_low_res}" alt="${juego.name}" class="card-game__bg" loading="lazy">
@@ -96,7 +105,9 @@ function renderizarCarrusel(listaJuegos, contenedorId, nombreCategoria) {
                     
                     <div class="card-game__footer">
                         <h3 class="card-game__title">${juego.name}</h3>
-                        <i class="ph ph-shopping-cart card-game__cart"></i>
+                        <button class="card-game__cart" data-id="${idJuego}" data-nombre="${nombreJuego}" data-imagen="${juego.background_image_low_res}" aria-label="Agregar ${nombreJuego} al carrito">
+                            <i class="ph ph-shopping-cart"></i>
+                        </button>
                     </div>
                 </div>
 

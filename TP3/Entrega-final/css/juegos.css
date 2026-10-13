@@ -244,9 +244,17 @@
 }
 
 .card-game__cart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
     color: var(--color-texto);
     font-size: 1.2rem;
     transition: color 0.2s;
+}
+
+.card-game__cart.en-carrito {
+    color: var(--color-secundario);
 }
 
 /* Botón "+" del hover: escondido hasta que se pase el mouse */

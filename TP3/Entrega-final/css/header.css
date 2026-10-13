@@ -230,6 +230,16 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  /* si hay muchos juegos, scrollea solo la lista y el título queda visible */
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.carrito-vacio {
+  color: var(--color-placeholder);
+  font-size: var(--body-small);
+  text-align: center;
+  padding: 1rem 0;
 }
 
 .carrito-item {
@@ -250,18 +260,13 @@
 }
 
 .carrito-item__nombre {
-  flex: 1; /* ocupa el espacio libre, empuja el precio y el tacho a la derecha */
+  flex: 1; /* ocupa el espacio libre, empuja el tacho a la derecha */
   color: var(--color-texto);
   font-size: var(--body);
   /* si el nombre es largo, no rompe el layout: corta con puntos suspensivos */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.carrito-item__precio {
-  color: var(--color-placeholder);
-  font-size: var(--body);
 }
 
 .carrito-item__borrar {
@@ -273,35 +278,6 @@
 .carrito-item__borrar:hover {
   color: var(--color-primario-oscuro);
   transform: scale(1.15);
-}
-
-.carrito-panel__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  border-top: 1px solid var(--color-borde);
-  padding-top: 1rem;
-}
-
-.carrito-panel__total {
-  color: var(--color-texto);
-  font-weight: 600;
-}
-
-.carrito-panel__btn-pagar {
-  background-color: var(--color-primario);
-  color: var(--color-texto);
-  border: none;
-  border-radius: 20px;
-  padding: 0.5rem 1.25rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.carrito-panel__btn-pagar:hover {
-  background-color: var(--color-primario-oscuro);
 }
 
 /* ==========================================================

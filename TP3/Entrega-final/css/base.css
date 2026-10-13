@@ -86,7 +86,8 @@ input {
    Con display: contents no generan caja propia: el header y el sidebar
    pasan a ser hijos directos de la página y "sticky" funciona. */
 #header-container,
-#sidebar-container {
+#sidebar-container,
+#footer-container {
   display: contents;
 }
 
