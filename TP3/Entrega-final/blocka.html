@@ -57,14 +57,14 @@
               <span class="hud-valor" id="nivel-actual">1</span>
             </div>
           </div>
-          <div class="hud-item">
+          <div class="hud-item" id="tiempo-div">
             <i class="ph-fill ph-timer"></i>
             <div class="hud-info">
               <span class="hud-label">TIEMPO</span>
               <span class="hud-valor"><span id="temporizador">0</span>s</span>
             </div>
           </div>
-          <div class="hud-item alerta">
+          <div class="hud-item alerta" >
             <i class="ph-fill ph-warning-octagon"></i>
             <div class="hud-info">
               <span class="hud-label">MÁXIMO</span>
@@ -74,6 +74,7 @@
         </div>
         
         <!-- Columna Central: El Tablero Canvas -->
+        <div class="imagen-ayuda">
         <div class="blocka-columna blocka-tablero">
           <div id="grilla-blocka" class="grilla-blocka inactivo">
             <canvas id="pieza-0" class="pieza-blocka"></canvas>
@@ -82,6 +83,7 @@
             <canvas id="pieza-3" class="pieza-blocka"></canvas>
           </div>
         </div>
+        </div>  
 
         <!-- Columna Derecha: Botones de Acción -->
         <div class="blocka-columna blocka-controles">
@@ -92,6 +94,11 @@
           <button id="btn-ayuda" class="boton-gaming btn-ayuda" disabled>
             <i class="ph-fill ph-lightbulb"></i>
             <span>Ayudita (+5s)</span>
+          </button>
+
+          <button id="btn-ayudota" class="boton-gaming btn-ayuda" disabled>
+            <i class="ph-fill ph-lightbulb"></i>
+            <span>Ayudota (+10s)</span>
           </button>
         </div>
         <div id="blocka-modal" class="blocka-modal oculto">

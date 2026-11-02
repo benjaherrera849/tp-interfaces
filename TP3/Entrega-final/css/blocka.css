@@ -70,6 +70,14 @@
   color: #ffffff;
 }
 /* para el máximo/record: */
+.hud-item.amarillo{
+  border-color: rgb(249, 249, 0);
+}
+
+.hud-item.amarillo i{
+  color: yellow;
+}
+
 .hud-item.alerta i {
   color: #ff2a6d; 
 }

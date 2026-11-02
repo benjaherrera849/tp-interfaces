@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <radialGradient id="ballGrad2" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#fff7ed" />
+      <stop offset="75%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#9a3412" />
+    </radialGradient>
+  </defs>
+  <!-- Base con volumen 3D -->
+  <circle cx="50" cy="50" r="50" fill="url(#ballGrad2)" />
+  <!-- Costuras -->
+  <g stroke="#7c2d12" stroke-width="2.5">
+    <line x1="50" y1="32" x2="50" y2="6" />
+    <line x1="67" y1="44" x2="92" y2="34" />
+    <line x1="61" y1="65" x2="78" y2="88" />
+    <line x1="39" y1="65" x2="22" y2="88" />
+    <line x1="33" y1="44" x2="8" y2="34" />
+  </g>
+  <!-- Pentágono central y parches -->
+  <g fill="#431407">
+    <polygon points="50,32 67,44 61,65 39,65 33,44" />
+    <polygon points="36,0 64,0 59,10 41,10" />
+    <polygon points="94,20 100,45 89,43 85,27" />
+    <polygon points="88,82 70,100 68,89 80,77" />
+    <polygon points="12,82 30,100 32,89 20,77" />
+    <polygon points="6,20 0,45 11,43 15,27" />
+  </g>
+</svg>

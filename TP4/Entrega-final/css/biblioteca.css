@@ -1,0 +1,141 @@
+/* ==========================================================
+   biblioteca.css
+   Estilos de la sección Mi Biblioteca (Mis Juegos)
+   ========================================================== */
+
+.biblioteca__encabezado {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: 1.5rem;
+}
+
+.biblioteca__titulo {
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+.biblioteca__subtitulo {
+  font-size: var(--body);
+  color: var(--color-placeholder);
+}
+
+.biblioteca__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 950px;
+}
+
+/* Tarjeta de juego estilo lanzador */
+.biblioteca-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.biblioteca-card__portada {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-color: #0b0914;
+  overflow: hidden;
+}
+
+.biblioteca-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.biblioteca-card__badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(13, 216, 199, 0.2);
+  color: var(--color-secundario-luz);
+  border: 1px solid var(--color-secundario);
+  backdrop-filter: blur(8px);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: var(--body-small);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.biblioteca-card__contenido {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  gap: 1.25rem;
+}
+
+.biblioteca-card__genero {
+  font-size: var(--body-small);
+  color: var(--color-primario);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.biblioteca-card__nombre {
+  font-family: var(--fuente-principal);
+  font-size: var(--h3);
+  color: var(--color-texto);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.biblioteca-card__detalles {
+  font-size: var(--body-small);
+  color: var(--color-placeholder);
+  line-height: 1.5;
+}
+
+.biblioteca-card__acciones {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+
+/* Vista horizontal para pantallas medianas y grandes */
+@media (min-width: 640px) {
+  .biblioteca-card {
+    flex-direction: row;
+    align-items: stretch;
+    height: 200px;
+  }
+
+  .biblioteca-card__portada {
+    width: 280px;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
+  .biblioteca-card__contenido {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.5rem 2rem;
+  }
+
+  .biblioteca-card__info {
+    flex: 1;
+  }
+
+  .biblioteca-card__acciones {
+    padding-top: 0;
+    margin-left: 1.5rem;
+  }
+}

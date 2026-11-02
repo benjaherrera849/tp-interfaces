@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrusel de juegos - API v2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Carrusel de juegos</h1>
+
+    <!-- El carrusel: contenedor con scroll horizontal + scroll-snap (todo CSS) -->
+    <div class="carrusel">
+        <div class="track" id="track">
+            <!-- Las tarjetas se generan desde script.js -->
+        </div>
+    </div>
+
+    <!-- Navegacion: son links comunes a los id de las tarjetas.
+         No hay JavaScript aca, el scroll suave lo hace el CSS. -->
+    <nav class="paginas">
+        <a href="#juego-1">&lsaquo;</a>
+        <a href="#juego-1">1</a>
+        <a href="#juego-5">2</a>
+        <a href="#juego-9">3</a>
+        <a href="#juego-13">4</a>
+        <a href="#juego-17">5</a>
+        <a href="#juego-17">&rsaquo;</a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

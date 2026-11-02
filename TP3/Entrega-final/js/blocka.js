@@ -3,10 +3,12 @@
 // ==========================================
 const btnComenzar = document.getElementById('btn-comenzar');
 const btnAyuda = document.getElementById('btn-ayuda');
+const btnAyudota =document.getElementById('btn-ayudota');
 const grillaBlocka = document.getElementById('grilla-blocka');
 const temporizadorUI = document.getElementById('temporizador');
 const nivelUI = document.getElementById('nivel-actual');
 const tiempoMaximoUI = document.getElementById('tiempo-maximo');
+const tiempoDiv = document.getElementById('tiempo-div');
 
 const modalUI = document.getElementById('blocka-modal');
 const modalMensaje = document.getElementById('modal-mensaje');
@@ -27,12 +29,13 @@ let tiempoMaximo = 27; // arranca en 27 segundos
 let timerInterval;
 let jugando = false;
 let indiceActual = -1; // Nos va a decir qué imagen estamos jugando ahora
+let vistaActiva = false; // true mientras se muestra la imagen completa (Ayudota)
 
 let piezasRotacion = [0, 0, 0, 0]; // Controla los grados de cada pieza
 let piezaBloqueada = [false, false, false, false]; // Para la 'ayuda'
 let imagenActual = new Image(); // Guarda la imagen para sacarle los filtros al ganar
 
-// Banco de imágenes (Asegurate de tener estas 6 imágenes en tu carpeta assets)
+// Banco de imágenes 
 const bancoImagenes = [
     'assets/blocka/blocka-1.jpg', 'assets/blocka/blocka-2.jpg', 'assets/blocka/blocka-3.jpg',
     'assets/blocka/blocka-4.jpg', 'assets/blocka/blocka-5.jpg', 'assets/blocka/blocka-6.jpg'
@@ -50,6 +53,8 @@ function cargarNivel() {
     
     grillaBlocka.classList.add('inactivo');
     btnAyuda.disabled = true;
+    btnAyudota.disabled = true;
+    tiempoDiv.classList.remove('amarillo', 'alerta');
     btnComenzar.innerText = "Comenzar Nivel " + nivel;
     piezaBloqueada = [false, false, false, false];
 
@@ -134,7 +139,7 @@ function aplicarFiltroSegunNivel(ctx, w, h) {
 canvasList.forEach((canvas, index) => {
     // Clic Izquierdo: Gira a la izquierda (-90deg)
     canvas.addEventListener('click', () => {
-        if (!jugando || piezaBloqueada[index]) return;
+        if (!jugando || vistaActiva || piezaBloqueada[index]) return;
         piezasRotacion[index] -= 90; 
         canvas.style.transform = `rotate(${piezasRotacion[index]}deg)`;
         verificarVictoria();
@@ -143,7 +148,7 @@ canvasList.forEach((canvas, index) => {
     // Clic Derecho: Gira a la derecha (+90deg)
     canvas.addEventListener('contextmenu', (e) => {
         e.preventDefault(); // Evita que se abra el menú de Chrome
-        if (!jugando || piezaBloqueada[index]) return;
+        if (!jugando || vistaActiva || piezaBloqueada[index]) return;
         piezasRotacion[index] += 90;
         canvas.style.transform = `rotate(${piezasRotacion[index]}deg)`;
         verificarVictoria();
@@ -158,23 +163,32 @@ btnComenzar.addEventListener('click', () => {
     jugando = true;
     grillaBlocka.classList.remove('inactivo');
     btnAyuda.disabled = false;
+    btnAyudota.disabled = false;
 
     // Extra: Límite de tiempo
     timerInterval = setInterval(() => {
         tiempo++;
         temporizadorUI.innerText = tiempo;
+        if(tiempo >= tiempoMaximo/2){
+          tiempoDiv.classList.add('amarillo');
+        }
+
+        if(tiempo >= tiempoMaximo-5){
+            tiempoDiv.classList.add('alerta');
+        }
+
         if (tiempo >= tiempoMaximo) {
             clearInterval(timerInterval);
             mostrarModal("¡Tiempo agotado!", "Reintentar", () => {
                 cargarNivel(); 
             });
         }
-    }, 500);
+    }, 1000);
 });
 
 // Extra: Botón "Ayudita" (+5 segundos)
 btnAyuda.addEventListener('click', () => {
-    if (!jugando) return;
+    if (!jugando || vistaActiva) return;
     
     // Buscamos qué piezas todavía están rotadas
     let desordenadas = [];
@@ -197,12 +211,38 @@ btnAyuda.addEventListener('click', () => {
     }
 });
 
+
+btnAyudota.addEventListener('click', () => {
+    if (!jugando || vistaActiva) return;
+    vistaActiva = true;
+    btnAyudota.disabled = true; 
+
+   
+    tiempo += 10;
+    temporizadorUI.innerText = tiempo;
+
+    
+    dibujarPiezas(false);
+    canvasList.forEach(canvas => {
+        canvas.style.transform = 'rotate(0deg)';
+    });
+
+    
+    setTimeout(() => {
+
+        dibujarPiezas(true); 
+
+        vistaActiva = false;
+    }, 500);
+});
+
 function verificarVictoria() {
     // Si todos los ángulos son múltiplos de 360, la imagen está derecha
     if (piezasRotacion.every(rot => rot % 360 === 0)) {
         clearInterval(timerInterval);
         jugando = false;
         btnAyuda.disabled = true;
+        btnAyudota.disabled = true;
         
         // Le sacamos los filtros redibujando la imagen original limpia
         dibujarPiezas(false); 
