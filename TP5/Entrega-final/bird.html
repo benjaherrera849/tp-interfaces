@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flappy Fútbol</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@700&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/botones.css">
+  <link rel="stylesheet" href="css/bird.css">
+  <link rel="stylesheet" href="css/juego.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+<div id="header-container"></div>
+
+<div class="app-layout">
+  <div id="sidebar-container"></div>
+
+  <main class="contenido-principal">
+
+    <nav class="breadcrumbs" aria-label="Ruta de navegación">
+      <ol>
+        <li><a href="index.html" class="enlace">Home</a>></li>
+        <li><a href="biblioteca.html" class="enlace">Juegos</a>></li>
+        <li><a href="index.html#deportes" class="enlace">Deportes</a>></li>
+        <li aria-current="page">Fútbol</li>
+      </ol>
+    </nav>
+
+    <div class="pagina-juego">
+      <div class="pagina-juego__principal">
+
+        <!-- Pantalla del juego: Flappy Fútbol (HUD | escena | controles) -->
+        <section class="pantalla-juego runner-contenedor">
+          <div class="runner-grid">
+
+            <!-- HUD de estadísticas -->
+            <div class="runner-hud">
+              <div class="hud-item">
+                <i class="ph-fill ph-timer"></i>
+                <div class="hud-info">
+                  <span class="hud-label">TIEMPO</span>
+                  <span class="hud-valor" id="timer">00:00</span>
+                </div>
+              </div>
+
+              <div class="hud-item">
+                <i class="ph-fill ph-soccer-ball"></i>
+                <div class="hud-info">
+                  <span class="hud-label">PUNTOS</span>
+                  <span class="hud-valor" id="puntos">0</span>
+                </div>
+              </div>
+
+              <div class="hud-item">
+                <i class="ph-fill ph-heart"></i>
+                <div class="hud-info">
+                  <span class="hud-label">VIDAS</span>
+                  <span class="hud-valor" id="vidas"></span>
+                </div>
+              </div>
+
+              <div class="hud-item">
+                <i class="ph-fill ph-trophy"></i>
+                <div class="hud-info">
+                  <span class="hud-label">MEJOR</span>
+                  <span class="hud-valor" id="mejor">0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Escena del juego -->
+            <div class="runner-tablero" id="tablero">
+              <div class="runner-escena" id="escena" aria-label="Escena de Flappy Fútbol">
+
+                <!-- Parallax: 5 capas, de la más lejana a la más cercana.
+                     data-factor = velocidad relativa al avance de la pelota. -->
+                <div class="capa capa--nubes"   data-capa="nubes"   data-factor="0.05"></div>
+                <div class="capa capa--ciudad"  data-capa="ciudad"  data-factor="0.2"></div>
+                <div class="capa capa--tribuna" data-capa="tribuna" data-factor="0.45"></div>
+                <div class="capa capa--vallas"  data-capa="vallas"  data-factor="0.75"></div>
+                <div class="capa capa--suelo"   data-capa="suelo"   data-factor="1"></div>
+
+                <!-- Obstáculos y elementos animados (los crea runner.js) -->
+                <div class="runner-tubos" id="tubos"></div>
+                <div class="runner-entidades" id="entidades"></div>
+
+                <!-- Avatar: pelota de fútbol -->
+                <div class="pelota" id="pelota">
+                  <div class="pelota__giro pelota__giro--girando" id="pelota-giro">
+                    <div class="pelota__cuerpo" id="pelota-cuerpo"></div>
+                  </div>
+                </div>
+                <div class="explosion" id="explosion"></div>
+
+                <div class="runner-efectos" id="efectos"></div>
+
+                <!-- Cartel de inicio / fin de partida -->
+                <div class="runner-mensaje" id="mensaje">
+                  <h3 class="runner-mensaje__titulo" id="mensaje-titulo"></h3>
+                  <p class="runner-mensaje__texto" id="mensaje-texto"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Controles -->
+            <div class="runner-controles">
+              <label for="tipoPelota">Tipo de pelota</label>
+              <select id="tipoPelota" class="runner-select"></select>
+
+              <button id="btn-comenzar" class="runner-boton runner-boton--principal">
+                <i class="ph-fill ph-play-circle"></i>
+                <span>Comenzar</span>
+              </button>
+
+              <button id="btn-reiniciar" class="runner-boton runner-boton--secundario" disabled>
+                <i class="ph-fill ph-arrow-counter-clockwise"></i>
+                <span>Reiniciar</span>
+              </button>
+
+              <p class="runner-ayuda">
+                Espacio, flecha arriba o clic para patear la pelota y mantenerla
+                en el aire.
+              </p>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Descripción: título, galería de imágenes e info del juego -->
+        <section class="descripcion-juego">
+          <div class="descripcion-juego__encabezado">
+            <h2 class="descripcion-juego__titulo">Flappy Fútbol</h2>
+            <button class="boton boton--fantasma">
+              <i class="ph ph-share-network"></i>
+              Compartir
+            </button>
+          </div>
+
+          <p class="descripcion-juego__texto">
+            Flappy Fútbol es un juego de scroll horizontal inspirado en Flappy Bird.
+            Controlás una pelota que avanza sola por un estadio y tenés que pasarla
+            entre los postes rayados dando pataditas para mantenerla en el aire.
+            A medida que sumás puntos, el espacio entre los postes se achica y
+            cambia de altura. Cuidado con las gaviotas, que te quitan una vida,
+            y juntá las monedas doradas para ganar puntos extra. El escenario
+            tiene varias capas con efecto parallax y tres vidas para que
+            llegues lo más lejos posible.
+          </p>
+
+          <div class="descripcion-juego__cuerpo">
+            <div class="galeria-juego">
+              <div class="galeria-juego__marco">
+                <img src="assets/bird.png" alt="La pelota lista para empezar la partida en el estadio" class="galeria-juego__imagen activa">
+                <img src="assets/galeria-2.png" alt="Pelota pasando entre dos postes rayados con gaviotas y monedas" class="galeria-juego__imagen">
+                <img src="assets/guiaflappyfutbol.png" alt="Pantalla completa de Flappy Fútbol con el tiempo, los puntos y las vidas" class="galeria-juego__imagen">
+              </div>
+              <div class="galeria-juego__puntos">
+                <button class="galeria-juego__punto activo" aria-label="Mostrar imagen 1"></button>
+                <button class="galeria-juego__punto" aria-label="Mostrar imagen 2"></button>
+                <button class="galeria-juego__punto" aria-label="Mostrar imagen 3"></button>
+              </div>
+            </div>
+
+            <dl class="info-juego">
+              <div class="info-juego__fila">
+                <dt>Desarrollador:</dt>
+                <dd>PixelCorner Studio</dd>
+              </div>
+              <div class="info-juego__fila">
+                <dt>Calificación:</dt>
+                <dd>5/10</dd>
+              </div>
+              <div class="info-juego__fila">
+                <dt>Fecha de lanzamiento:</dt>
+                <dd>24/11/2026</dd>
+              </div>
+            </dl>
+          </div>
+
+          <a href="index.html" class="enlace">Más juegos como este</a>
+        </section>
+
+        <!-- Cómo jugar: reglas y video tutorial -->
+        <section class="como-jugar">
+          <h2 class="como-jugar__titulo">Cómo jugar</h2>
+
+          <ol class="como-jugar__reglas">
+            <li>Presioná <strong>Comenzar</strong> (o hacé clic en la pantalla) para empezar. La pelota avanza sola a velocidad constante.</li>
+            <li>Usá la <strong>barra espaciadora</strong>, la <strong>flecha arriba</strong> o el <strong>clic</strong> para patear y subir. Si no das impulso, la pelota cae.</li>
+            <li>Pasá por el hueco entre los postes: cada par superado suma <strong>1 punto</strong>.</li>
+            <li>Los postes no están siempre a la misma distancia, el hueco cambia de altura y se va achicando a medida que avanzás.</li>
+            <li>Las <strong>gaviotas</strong> te quitan <strong>1 vida</strong>. Tenés 3 vidas y quedás protegido un instante después de cada golpe. El juego sigue.</li>
+            <li>Las <strong>monedas doradas</strong> suman <strong>5 puntos</strong>.</li>
+            <li>Si chocás contra un poste o caés al césped, la pelota explota y termina el partido. También termina si perdés las 3 vidas.</li>
+            <li>Tu mejor puntaje queda guardado. Podés elegir el tipo de pelota en el selector y usar <strong>Reiniciar</strong> para empezar de nuevo.</li>
+          </ol>
+
+          <button class="como-jugar__video" aria-label="Reproducir video tutorial">
+            <img src="assets/guiaflappyfutbol.png" alt="" class="como-jugar__miniatura">
+            <i class="ph-fill ph-play-circle como-jugar__icono-play"></i>
+          </button>
+        </section>
+
+      </div>
+
+      <!-- Panel de Comunidad: escribir reseña + reseñas existentes -->
+      <aside class="comunidad">
+        <h2 class="comunidad__titulo">COMUNIDAD</h2>
+
+        <form id="form-resena" class="resena-form">
+          <textarea id="texto-resena" class="resena-form__texto" placeholder="Escribe una reseña..."></textarea>
+
+          <div class="resena-form__pie">
+            <label for="puntaje-resena" class="resena-form__puntaje-label">
+              Calificación:
+              <input type="number" id="puntaje-resena" class="resena-form__puntaje" min="0" max="10">
+              /10
+            </label>
+            <button type="submit" class="boton boton--secundario">Enviar</button>
+          </div>
+        </form>
+
+        <div class="resenas">
+          <div class="resenas__encabezado">
+            <h3>Mas reseñas</h3>
+          </div>
+
+          <div id="lista-resenas">
+            <article class="resena">
+              <header class="resena__encabezado">
+                <span class="resena__usuario">CarlaGamer22</span>
+                <span class="resena__puntaje">8/10</span>
+              </header>
+              <p class="resena__texto">Muy entretenido para partidas cortas, ideal para el recreo.</p>
+            </article>
+
+            <article class="resena">
+              <header class="resena__encabezado">
+                <span class="resena__usuario">FitoPaez</span>
+                <span class="resena__puntaje">6/10</span>
+              </header>
+              <p class="resena__texto">Buena idea combinar el flappy bird con fútbol, pero se hace repetitivo después de un rato.</p>
+            </article>
+
+            <article class="resena">
+              <header class="resena__encabezado">
+                <span class="resena__usuario">Nachozor</span>
+                <span class="resena__puntaje">9/10</span>
+              </header>
+              <p class="resena__texto">El mejor juego de la plataforma, lo juego todos los días en el bondi.</p>
+            </article>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+</div>
+
+<div id="footer-container"></div>
+
+<script src="js/header.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/main.js"></script>
+<script src="js/bird.js"></script>
+<script src="js/runner.js"></script>
+</body>
+</html>

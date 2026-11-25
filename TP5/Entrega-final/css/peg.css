@@ -1,0 +1,212 @@
+/* ==========================================================
+   peg.css
+   Estilos del juego Peg Solitaire integrado en juego.html.
+   Layout de 3 columnas: HUD, tablero y controles.
+   ========================================================== */
+
+.peg-contenedor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(13, 216, 199, 0.14), transparent 55%),
+    linear-gradient(145deg, #101a24 0%, #0b1118 60%, #0a0d12 100%);
+}
+
+.peg-columna {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* --- Columna izquierda: HUD --- */
+.peg-hud {
+  flex: 0 0 190px;
+  max-width: 220px;
+}
+
+.peg-hud .hud-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid rgba(13, 216, 199, 0.3);
+  border-radius: 0.75rem;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.55);
+}
+
+.peg-hud .hud-item i {
+  font-size: 2rem;
+  color: #0dd8c7;
+}
+
+.peg-hud .hud-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.peg-hud .hud-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #8892b0;
+}
+
+.peg-hud .hud-valor {
+  font-family: var(--fuente-titulo), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+}
+
+/* --- Columna central: tablero --- */
+.peg-tablero {
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.peg-canvas {
+  display: block;
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background-color: #0a0d12;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 0 24px rgba(13, 216, 199, 0.28),
+    0 12px 30px rgba(0, 0, 0, 0.45);
+  cursor: grab;
+  touch-action: none;
+}
+
+.peg-canvas:active {
+  cursor: grabbing;
+}
+
+/* --- Columna derecha: controles --- */
+.peg-controles {
+  flex: 0 0 200px;
+  max-width: 230px;
+}
+
+.peg-controles label {
+  font-size: var(--body-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8892b0;
+}
+
+.peg-select {
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  background-color: #0f0f19;
+  border: 1px solid rgba(13, 216, 199, 0.35);
+  border-radius: 0.6rem;
+  color: #ffffff;
+  font-family: var(--fuente-principal);
+  font-size: var(--body);
+  cursor: pointer;
+}
+
+.peg-select:focus-visible {
+  outline: 2px solid var(--color-secundario);
+  outline-offset: 2px;
+}
+
+.peg-boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: var(--fuente-principal);
+  font-size: var(--body-small);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.peg-boton i {
+  font-size: 1.35rem;
+}
+
+.peg-boton--principal {
+  background: linear-gradient(135deg, #0dd8c7, #0077ff);
+  color: #041016;
+  box-shadow: 0 0 15px rgba(13, 216, 199, 0.45);
+}
+
+.peg-boton--principal:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(13, 216, 199, 0.75);
+}
+
+.peg-boton--secundario {
+  background-color: rgba(15, 15, 25, 0.95);
+  color: #ffb703;
+  border: 1px solid #ffb703;
+}
+
+.peg-boton--secundario:not(:disabled):hover {
+  background-color: rgba(255, 183, 3, 0.15);
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.35);
+}
+
+.peg-boton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+
+.peg-ayuda {
+  font-size: var(--body-small);
+  line-height: 1.5;
+  color: var(--color-placeholder);
+}
+
+/* ==========================================================
+   Pantallas más angostas: el tablero pasa arriba y el HUD
+   y los controles se acomodan abajo sin desbordar.
+   ========================================================== */
+@media (max-width: 1200px) {
+  .peg-contenedor {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .peg-tablero {
+    order: -1;
+    flex: 1 1 100%;
+  }
+
+  .peg-hud {
+    flex: 1 1 220px;
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .peg-hud .hud-item {
+    flex: 1 1 140px;
+  }
+
+  .peg-controles {
+    flex: 1 1 220px;
+    max-width: none;
+  }
+}

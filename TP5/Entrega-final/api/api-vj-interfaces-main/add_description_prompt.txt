@@ -1,0 +1,8 @@
+create a new file called games_v3.json with the same structure as games_v2.json but with the first 10 games
+create a script (save the script as description_script.js) that:
+- for each game in games_v3.json
+- takes the id of the games 
+- perform a query to curl https://api.rawg.io/api/games/3498\?key\=35564e1ceb3d4a359f4b2431f1fb8cf2
+- take the "description" field from the response and add it to each game
+- make it easy to adapt so i can process the next 10 games, 20 games, etc. in games_v2.json and add the
+resulting "description" field to each game in games_v3.json. just like you did for the first 10 games.

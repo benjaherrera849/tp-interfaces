@@ -1,0 +1,501 @@
+/* ==========================================================
+     1. Contenedor y distribución (HUD / escena / controles)
+     2. HUD y controles
+     3. Escena y capas de parallax
+     4. Tubos (obstáculos)
+     5. Pelota y sus animaciones keyframe
+     6. Elementos animados con spritesheet (gaviota, moneda, explosión)
+     7. Efectos y mensajes
+   ========================================================== */
+
+/* ==========================================================
+   1. Contenedor y distribución
+   El contenedor "mide" su propio ancho: si hay lugar, el HUD y
+   los controles van a los costados; si no, se apilan debajo.
+   ========================================================== */
+   .runner-contenedor {
+    container-type: inline-size;
+    padding: 1rem;
+    background-color: var(--color-superficie, #1c2130);
+  }
+  
+  .runner-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "tablero"
+      "hud"
+      "controles";
+  }
+  
+  .runner-hud      { grid-area: hud; }
+  .runner-tablero  { grid-area: tablero; }
+  .runner-controles { grid-area: controles; }
+  
+  @container (min-width: 900px) {
+    .runner-grid {
+      grid-template-columns: 150px minmax(0, 1fr) 180px;
+      grid-template-areas: "hud tablero controles";
+      align-items: start;
+    }
+    .runner-hud { grid-template-columns: 1fr; }
+    .runner-controles { flex-direction: column; align-items: stretch; }
+  }
+  
+  /* ==========================================================
+     2. HUD y controles
+     ========================================================== */
+  .runner-hud {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .hud-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    background-color: var(--color-borde, #2a3145);
+    border-radius: 0.75rem;
+  }
+  
+  .hud-item > i {
+    font-size: 1.6rem;
+    color: var(--color-secundario, #2ec4b6);
+  }
+  
+  .hud-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  
+  .hud-label {
+    font-size: 0.7rem;
+    color: var(--color-placeholder, #9aa3b5);
+    letter-spacing: 0.04em;
+  }
+  
+  .hud-valor {
+    font-family: "Bitcount Single", var(--fuente-principal, sans-serif), monospace;
+    font-size: 1.4rem;
+    color: var(--color-texto, #fff);
+  }
+  
+  /* Corazones de vidas */
+  .hud-valor .ph-heart {
+    font-size: 1.2rem;
+    color: #ff4d6d;
+  }
+  
+  .hud-valor .vida--perdida {
+    color: var(--color-placeholder, #9aa3b5);
+    opacity: 0.35;
+  }
+  
+  .runner-controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .runner-controles label {
+    width: 100%;
+    font-size: var(--body-small, 0.9rem);
+    color: var(--color-placeholder, #9aa3b5);
+  }
+  
+  .runner-select {
+    padding: 0.5rem 0.6rem;
+    background-color: var(--color-borde, #2a3145);
+    color: var(--color-texto, #fff);
+    border: 1px solid var(--color-placeholder, #9aa3b5);
+    border-radius: 0.5rem;
+    font-family: inherit;
+  }
+  
+  .runner-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 0.6rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.1s ease;
+  }
+  
+  .runner-boton:hover:not(:disabled) { filter: brightness(1.15); }
+  .runner-boton:active:not(:disabled) { transform: scale(0.97); }
+  .runner-boton:disabled { opacity: 0.4; cursor: not-allowed; }
+  
+  .runner-boton--principal {
+    background-color: var(--color-primario, #7c5cff);
+    color: #fff;
+  }
+  
+  .runner-boton--secundario {
+    background-color: transparent;
+    color: var(--color-texto, #fff);
+    border: 2px solid var(--color-secundario, #2ec4b6);
+  }
+  
+  .runner-ayuda {
+    width: 100%;
+    font-size: var(--body-small, 0.9rem);
+    line-height: 1.4;
+    color: var(--color-placeholder, #9aa3b5);
+  }
+  
+  /* ==========================================================
+     3. Escena y capas de parallax
+     La escena mide siempre 800x500 y se escala con JS al
+     ancho real. Así la física no depende del tamaño de pantalla.
+     ========================================================== */
+  .runner-tablero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 800 / 500;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background-color: #000;
+  }
+  
+  .runner-escena {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 500px;
+    transform-origin: 0 0;
+    overflow: hidden;
+    background: linear-gradient(#3887c4 0%, #a984d3 65%, #9ea1b6 100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  /* Cada capa es un tile repetido en horizontal; JS mueve el background-position-x */
+  .capa {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    pointer-events: none;
+  }
+  
+  /* De la más lejana a la más cercana (el height lo define JS según el tile) */
+  .capa--nubes   { top: 30px;    z-index: 1; }
+  .capa--ciudad  { bottom: 80px; z-index: 2; }
+  .capa--tribuna { bottom: 80px; z-index: 3; }
+  .capa--vallas  { bottom: 80px; z-index: 4; }
+  .capa--suelo   { bottom: 0;    z-index: 6; }  /* encima de los tubos: parecen plantados */
+  
+  /* ==========================================================
+     4. Tubos (postes rayados)
+     ========================================================== */
+  .runner-tubos {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+  
+  /* JS desplaza este contenedor con transform: translate3d */
+  .tubo-par {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72px;
+    height: 500px;
+    will-change: transform;
+  }
+  
+  .tubo {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-left: 3px solid #1b1b1b;
+    border-right: 3px solid #1b1b1b;
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 30%, rgba(0, 0, 0, 0.25)),
+      repeating-linear-gradient(0deg, #ffffff 0 22px, #d62839 22px 44px);
+  }
+  
+  .tubo__borde {
+    position: absolute;
+    left: -8px;
+    width: 88px;
+    height: 26px;
+    box-sizing: border-box;
+    background-color: #d62839;
+    border: 3px solid #1b1b1b;
+    border-radius: 6px;
+  }
+  
+  .tubo--arriba .tubo__borde { bottom: 0; }
+  .tubo--abajo  .tubo__borde { top: 0; }
+  
+  /* Animación de interacción: el tubo golpeado destella y su borde se infla */
+  .tubo-par--golpeado {
+    animation: tubo-destello 0.5s ease-out;
+  }
+  
+  .tubo-par--golpeado .tubo__borde {
+    animation: tubo-golpe 0.5s ease-out;
+  }
+  
+  @keyframes tubo-destello {
+    0%   { filter: brightness(1); }
+    25%  { filter: brightness(2.2); }
+    100% { filter: brightness(1); }
+  }
+  
+  @keyframes tubo-golpe {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.2, 1.4); }
+    100% { transform: scale(1); }
+  }
+  
+  /* ==========================================================
+     5. Pelota
+     Tres capas para que las animaciones no se pisen entre sí:
+       .pelota         -> posición/inclinación (JS) + parpadeo
+       .pelota__giro   -> rotación continua mientras vuela
+       .pelota__cuerpo -> animaciones de un solo uso (patada, golpe, explosión)
+     ========================================================== */
+  .pelota {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px; /* el punto (x, y) es el CENTRO de la pelota */
+    z-index: 8;
+    will-change: transform;
+    pointer-events: none;
+  }
+  
+  .pelota__giro,
+  .pelota__cuerpo {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .pelota__cuerpo {
+    background: var(--sprite-pelota) center / contain no-repeat;
+  }
+  
+  /* Animación 1: giro continuo en vuelo */
+  .pelota__giro--girando {
+    animation: girar 0.9s linear infinite;
+  }
+  
+  @keyframes girar {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Animación 2: "patada" (squash & stretch) cada vez que se da impulso */
+  .pelota__cuerpo--impulso {
+    animation: impulso 0.25s ease-out;
+  }
+  
+  @keyframes impulso {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(0.8, 1.25); }
+    60%  { transform: scale(1.15, 0.9); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Animación 3: golpe de gaviota (sacudida + destello rojo) */
+  .pelota__cuerpo--golpe {
+    animation: golpe 0.5s ease-out;
+  }
+  
+  @keyframes golpe {
+    0%, 100% { transform: translateX(0) rotate(0); filter: none; }
+    15%  { transform: translateX(-8px) rotate(-18deg); filter: sepia(1) saturate(8) hue-rotate(-40deg); }
+    35%  { transform: translateX(8px) rotate(18deg);   filter: sepia(1) saturate(8) hue-rotate(-40deg); }
+    60%  { transform: translateX(-4px) rotate(-8deg); }
+  }
+  
+  /* Animación 4: parpadeo mientras dura la invulnerabilidad */
+  .pelota--invulnerable {
+    animation: parpadeo 0.2s steps(2, jump-none) infinite;
+  }
+  
+  @keyframes parpadeo {
+    0%   { opacity: 1; }
+    100% { opacity: 0.25; }
+  }
+  
+  /* Animación 5: la pelota flota antes de empezar */
+  .pelota__cuerpo--flotar {
+    animation: flotar 1.4s ease-in-out infinite;
+  }
+  
+  @keyframes flotar {
+    0%, 100% { transform: translateY(-8px); }
+    50%      { transform: translateY(8px); }
+  }
+  
+  /* Animación 6: la pelota se infla y desaparece al chocar */
+  .pelota__cuerpo--explota {
+    animation: explotar 0.5s ease-in forwards;
+  }
+  
+  @keyframes explotar {
+    0%   { transform: scale(1); opacity: 1; }
+    30%  { transform: scale(1.4); opacity: 1; filter: brightness(2); }
+    100% { transform: scale(0); opacity: 0; }
+  }
+  
+  /* ==========================================================
+     6. Elementos animados con spritesheet
+     Técnica de la clase: una imagen con todos los cuadros en
+     fila + keyframes que mueven background-position + steps(N)
+     para saltar de cuadro en cuadro.
+     Cada entidad se posiciona por su CENTRO (margen negativo).
+     ========================================================== */
+  .runner-entidades {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+    pointer-events: none;
+  }
+  
+  .entidad {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    will-change: transform;
+  }
+  
+  /* Gaviota: 4 cuadros de 64x48 -> hoja de 256px */
+  .entidad--gaviota {
+    width: 64px;
+    height: 48px;
+    margin: -24px 0 0 -32px;
+    background-image: var(--sprite-gaviota);
+    animation: aletear 0.5s steps(4) infinite;
+  }
+  
+  @keyframes aletear {
+    from { background-position: 0 0; }
+    to   { background-position: -256px 0; }
+  }
+  
+  /* Moneda: 6 cuadros de 40x40 -> hoja de 240px */
+  .entidad--moneda {
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    background-image: var(--sprite-moneda);
+    animation: girar-moneda 0.7s steps(6) infinite;
+  }
+  
+  @keyframes girar-moneda {
+    from { background-position: 0 0; }
+    to   { background-position: -240px 0; }
+  }
+  
+  /* La gaviota que ya golpeó se ve opaca y no vuelve a hacer daño */
+  .entidad--golpeada {
+    opacity: 0.35;
+  }
+  
+  /* Explosión: 6 cuadros de 96x96 -> hoja de 576px, se reproduce una vez */
+  .explosion {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    display: none;
+    width: 96px;
+    height: 96px;
+    margin: -48px 0 0 -48px;
+    background: var(--sprite-explosion) 0 0 no-repeat;
+    pointer-events: none;
+  }
+  
+  .explosion--activa {
+    display: block;
+    animation: explosion 0.5s steps(6) forwards;
+  }
+  
+  @keyframes explosion {
+    from { background-position: 0 0; }
+    to   { background-position: -576px 0; }
+  }
+  
+  /* ==========================================================
+     7. Efectos y mensajes
+     ========================================================== */
+  .runner-efectos {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  /* Textos que suben y se desvanecen (+1, +5, -1 vida) */
+  .flotante {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    transform: translate(-50%, -50%);
+    animation: subir 0.8s ease-out forwards;
+  }
+  
+  .flotante--moneda { color: #ffd54a; }
+  .flotante--dano   { color: #ff6b81; }
+  
+  @keyframes subir {
+    from { transform: translate(-50%, -50%); opacity: 1; }
+    to   { transform: translate(-50%, -170%); opacity: 0; }
+  }
+  
+  /* Cartel sobre la escena (inicio y fin de partida) */
+  .runner-mensaje {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    background-color: rgba(10, 15, 30, 0.6);
+    color: #fff;
+    text-align: center;
+    pointer-events: none;
+  }
+  
+  .runner-mensaje[hidden] {
+    display: none;
+  }
+  
+  .runner-mensaje__titulo {
+    font-size: 2.2rem;
+    color: #fff;
+  }
+  
+  .runner-mensaje__texto {
+    max-width: 46ch;
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
